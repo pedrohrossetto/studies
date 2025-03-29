@@ -1,3 +1,9 @@
+// Autor: Pedro H.C Rossetto
+// Data: 29/03/2025
+// Descrição: Código para ordenar 3 números
+// Lista EAD 3, Exercício 3, Algoritimos 1
+
+
 #include <iostream>
 using namespace std;
 int main() {
