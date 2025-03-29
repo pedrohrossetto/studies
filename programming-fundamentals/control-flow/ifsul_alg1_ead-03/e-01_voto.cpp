@@ -4,8 +4,8 @@
 • eleitor facultativo (entre 16 e 18 anos ou maior de 65
 */
 
-#import<iostream>
-#import<iomanip>
+#include <iostream>
+#include <iomanip>
 using namespace std;
 
 main()

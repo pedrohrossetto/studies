@@ -43,7 +43,7 @@ int main() {
     do {cout << "Informe se possui deficiência (S/N): "<<endl;
         cin >> resposta_pcd;
         resposta_pcd = toupper(resposta_pcd);} 
-    while (resposta_pcd != 'N' and resposta_pcd != 'S');
+    while (resposta_pcd != 'N' && resposta_pcd != 'S');
 
 
 
