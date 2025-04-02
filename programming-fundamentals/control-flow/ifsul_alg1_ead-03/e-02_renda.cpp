@@ -11,8 +11,7 @@
     using namespace std;
 
     int main() {
-    cout << fixed << setprecision(
-        2);
+    cout << fixed << setprecision(2);
     float salary_brute,ir_quota,ir_value,salary_liquid;
     cout << "Informe seu salário R$: " << endl;
     cin >> salary_brute;
