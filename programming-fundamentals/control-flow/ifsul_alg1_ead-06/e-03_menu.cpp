@@ -1,7 +1,7 @@
 // Autor: Pedro H.C Rossetto
 // Data: 07/04/2025
 // Descrição: Código para para apresentar menu
-// Lista de Exercícios, Exercício 1, EAD6
+// Lista de Exercícios, Exercício 3, EAD6
 
 #include <iostream>
 #include <cstdio>
