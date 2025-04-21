@@ -10,17 +10,29 @@
 #include <vector>
 using namespace std;
 
-int main () {
-    int num_laps = 5,lap,slowest_lap,fastest_lap;
-    float lap_time,time_total,slowest_time = 0,fastest_time = 1000.01;
+int main()
+{
+    int num_laps = 5, lap, slowest_lap, fastest_lap;
+    float lap_time, time_total, slowest_time = 0, fastest_time = 1000.01;
 
-
-    for(lap = 1; lap <= num_laps; lap ++){
-        do {cout << "Informe o tempo da volta " << lap <<":"<<endl;
-            cin >> lap_time;} while (lap_time <= 0 or lap_time > 1000);
+    for (lap = 1; lap <= num_laps; lap++)
+    {
+        do
+        {
+            cout << "Informe o tempo em segundos da volta " << lap << ":" << endl;
+            cin >> lap_time;
+        } while (lap_time <= 0 || lap_time > 1000);
         time_total += lap_time;
-        if (lap_time < fastest_time){fastest_time = lap_time;fastest_lap = lap;}
-        if (lap_time > slowest_time){slowest_time  = lap_time;slowest_lap = lap;}
+        if (lap_time < fastest_time)
+        {
+            fastest_time = lap_time;
+            fastest_lap = lap;
+        }
+        if (lap_time > slowest_time)
+        {
+            slowest_time = lap_time;
+            slowest_lap = lap;
+        }
     }
 
     cout << fixed << setprecision(2);
