@@ -1,9 +1,30 @@
+// Autor: Pedro H.C Rossetto
+// Data: 19/05/2025
+// Descrição: Código para preencher vetor, mostrar vetor, inverter e mostrar novamente
+// Lista de Exercícios, Exercício 1, EAD8
+
+//Vou tentar utilizar funções secundárias, classes e headers nessa lista de exercicios
+
+
 #include <iostream>
-#include <cstdio>
-#include <iomanip>
 #include <vector>
-#include <string>
 using namespace std;
+
+
+vector<int> VetElementInput(int tam_vet, int limite_inferior, int limite_superior)
+{
+    vector<int> vet(tam_vet);
+    for (int i = 0; i < tam_vet; i++)
+    {
+        do
+        {
+            cout << "\nPreencha, com valores entre " << limite_inferior << " e " << limite_superior << ", o vet para a posição: " << i << endl;
+            cin >> vet[i];
+        } while (vet[i] < limite_inferior || vet[i] > limite_superior);
+        cout << "Posição " << i << " registrada com sucesso como " << vet[i] << endl;
+    }
+    return vet;
+}
 
 void CoutVetElements(const vector<int> &vet)
 {
@@ -32,21 +53,11 @@ vector<int> inverterOrdem(const vector<int> &vet)
 
 int main()
 {
-
-    int const tamanho_vetor = 6;
-    int i;
-
-    int vetor_original[tamanho_vetor];
-
-    for (i = 0; i < tamanho_vetor; i++)
-    {
-        do
-        {
-            cout << "\nPreencha o vet para a posição: " << i << endl;
-            cin >> vetor_original[i];
-        } while (vetor_original[i] < 20 || vetor_original[i] > 50);
-        cout << "Posição " << i << " registrada com sucesso como " << vetor_original[i] << endl;
-    }
-    vector<int> vetor_invertido = inverterOrdem(vector<int>(vetor_original, vetor_original + tamanho_vetor));
-    CoutVetElements(vetor_invertido);
+    int const tam_vet = 6;
+    vector<int> vet = VetElementInput(tam_vet,20,50);
+    cout << "\nVetor original:\n";
+    CoutVetElements(vet);
+    vector<int> vet_invertido = inverterOrdem(vet);
+    cout << "Vetor invertido:\n";
+    CoutVetElements(vet_invertido);
 }
