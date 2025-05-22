@@ -7,6 +7,18 @@
 
 
 
+#include "includes/vet_funcs.cpp"
 #include <iostream>
 #include <vector>
-using namespace std;
+
+int main(){
+    using namespace std;
+    int tam_vet = 10;
+    VetorFunctions classeVetor;
+    vector<float> vet_original = classeVetor.VetElementInput(tam_vet, 0.0f, 10.0f);
+    cout << "Lista original:" << endl;
+    classeVetor.CoutVetElements(vet_original);
+    float media_vet = classeVetor.mediaVector(vet_original);
+    cout << "\nMedia do Vector: "<< media_vet<< endl;
+    
+}

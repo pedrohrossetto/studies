@@ -12,28 +12,27 @@ class VetorFunctions
 private:
     std::vector<int> vet;
 
+
 public:
     // Constructor that takes a vector as parameter
-    VetorFunctions(const std::vector<int> &vetor_param)
+    VetorFunctions()
     {
-        vet = vetor_param;
     }
+    template <typename T>
 
-
-    
-    void CoutVetElements(const std::vector<int> &vetor) const
+    void coutVet(const std::vector<T> &vet) const
     {
         cout << "[";
-        for (size_t i = 0; i < vetor.size(); i++)
+        for (size_t i = 0; i < vet.size(); i++)
         {
-            cout << vetor[i];
-            if (i != vetor.size() - 1)
+            cout << vet[i];
+            if (i != vet.size() - 1)
                 cout << ",";
         }
         cout << "]" << endl;
     }
 
-    std::vector<int> ordenarDecrescente()
+    std::vector<int> ordenarDecrescente(const std::vector<int> &vet) const
     {
         std::vector<int> vet_ordenado = vet; // copiando o vetor original para um novo vetor
         int max, aux;
@@ -52,7 +51,7 @@ public:
         return vet_ordenado;
     }
 
-    std::vector<int> ordenarCrescente()
+    std::vector<int> ordenarCrescente(const std::vector<int> &vet) const
     {
         std::vector<int> vet_ordenado = vet;
         int min, aux;
@@ -71,11 +70,11 @@ public:
         return vet_ordenado;
     }
 
-    std::vector<int> inverterOrdem()
+    std::vector<int> inverterOrdem(const std::vector<int> &vet) const
     {
         std::vector<int> vet_invertido = vet;
         size_t n = vet_invertido.size();
-        for (size_t i = 0; i < n / 2; ++i)
+        for (size_t i = 0; i < n / 2; i++)
         {
             int temp = vet_invertido[i];
             vet_invertido[i] = vet_invertido[n - 1 - i];
@@ -84,9 +83,10 @@ public:
         return vet_invertido;
     }
 
-    vector<int> VetElementInput(int tam_vet, int limite_inferior, int limite_superior)
+    template <typename T>
+    vector<T> vetElementInput(int tam_vet, T limite_inferior, T limite_superior)
     {
-    vector<int> vet(tam_vet);
+    vector<T> vet(tam_vet);
     for (int i = 0; i < tam_vet; i++)
     {
         do
@@ -98,13 +98,48 @@ public:
     }
     return vet;
     }
+    template <typename T>
+
+    float mediaVector(const std::vector<T> &vet) const
+    {
+        int tam_vet = vet.size();
+        float sum = 0.0f;
+        for (int i = 0; i < tam_vet; i++)
+        {
+            sum += vet[i];
+        }
+        float media_vet = sum / tam_vet;
+        cout << fixed << setprecision(1);
+        return media_vet;
+    }
+
+    template <typename T>
+
+    int elementsAboveLimit(vector<T> vet,T limit){
+        
+    }
+
+
+
 };
+
+/*int main(){
+    using namespace std;
+    int tam_vet = 10;
+    VetorFunctions classeVetor;
+    vector<float> vet_original = classeVetor.VetElementInput(tam_vet, 0.0f, 10.0f);
+    cout << "Lista original:" << endl;
+    classeVetor.CoutVetElements(vet_original);
+    float media_vet = classeVetor.mediaVector(vet_original);
+    cout << "\nMedia do Vector: "<< media_vet<< endl;
+}
+    */
 
 // Em C++, não existe um equivalente direto ao "if __name__ == '__main__'" do Python.
 // O ponto de entrada do programa é sempre a função main().
 // Portanto, basta definir a função main() normalmente, como já está no seu código.
 
-int main()
+/* int main()
 {
     using namespace std;
     vector<int> vetor_teste = {5, 2, 9, 1, 7}; // exemplo de vetor
@@ -115,3 +150,4 @@ int main()
     cout << "Lista após processamento:\n";
     classeVetor.CoutVetElements(vet_invertido);
 }
+*/
