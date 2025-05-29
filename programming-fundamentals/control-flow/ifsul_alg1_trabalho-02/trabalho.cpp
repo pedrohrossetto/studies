@@ -116,47 +116,6 @@ int efetuar_saque(int contas[], int saldos[]){
 }
 
 
-void menu_interativo(int contas[], int saldos[]) {
-    bool contas_inicializadas = false;
-    int opcao;
-    do {
-        print_menu();
-        cin >> opcao;
-        switch (opcao) {
-            case 0:
-                cadastrar_contas(contas, saldos);
-                contas_inicializadas = true;
-                break;
-            case 1:
-                if (!contas_inicializadas) {
-                    cout << "Opção Inválida, é necessário selecionar anteriormente a opção 0\n";
-                } else {
-                    efetuar_deposito(contas, saldos);
-                }
-                break;
-            case 2:
-                if (!contas_inicializadas) {
-                    cout << "Opção Inválida, é necessário selecionar anteriormente a opção 0\n";
-                } else {
-                    efetuar_saque(contas, saldos);
-                }
-                break;
-            case 3:
-                if (!contas_inicializadas) {
-                    cout << "Opção Inválida, é necessário selecionar anteriormente a opção 0\n";
-                } else {
-                    consultar_ativos(contas, saldos);
-                }
-                break;
-            case 4:
-                cout << "Programa finalizado.\n";
-                break;
-            default:
-                cout << "Opção inválida.\n";
-        }
-    } while (opcao != 4);
-}
-
 
 int main(){
     setlocale(LC_ALL,"PORTUGUESE");
