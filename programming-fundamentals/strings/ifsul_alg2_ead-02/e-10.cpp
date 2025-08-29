@@ -10,7 +10,13 @@ int main() {
     cin.getline(frase, 201);
 
     for (int i = 0; frase[i] != '\0'; i++) {
+        if ( frase[i] >= 'A' && frase[i] <= 'Z'){
+            cout << "original: " << frase[i] << endl;
+            frase[i] = tolower(frase[i]);
+            cout << "formatado: " << frase[i] << endl;
+        }
         if (frase[i] >= 'a' && frase[i] <= 'z') {
+            
             letras_encontradas[frase[i] - 'a'] = true;
         }
     }

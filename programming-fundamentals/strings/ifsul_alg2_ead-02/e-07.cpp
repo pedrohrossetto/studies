@@ -1,11 +1,12 @@
 #include <iostream>
 #include <cstring>
 #include <clocale>
+#include <windows.h>
 
 using namespace std;
 
 int main() {
-    setlocale(LC_ALL, "Portuguese");
+    SetConsoleOutputCP(1252);
 
     const int TAMANHO_MAXIMO = 500;
     char texto_original[TAMANHO_MAXIMO];
