@@ -7,7 +7,7 @@
 
 
 
-#include <string>
+#include <cstring>
 #include <iostream>
 #include <fstream>
 #include <windows.h>
@@ -15,15 +15,28 @@
 
 using namespace std; 
 
+void zerarMatriz(int matriz[4][4]) {
+    for (int i = 0; i < 4; ++i) {
+        for (int j = 0; j < 4; ++j) {
+            matriz[i][j] = 0;
+        }
+    }
+}
+
 int main () {
+    system("chcp 1252 > nul");
     SetConsoleCP(1252);
     SetConsoleOutputCP(1252);
     // Valores dos ingressos (removidos se não usados)
     // int valor_camarote = 350, valor_cadeira_central = 160, valor_cadeira_lateral = 125, valor_arquibancada = 98, cadeira_escolhida;
 
+    /*
+    Obter o caminho absoluto do arquivo atual, 
+    estava tendo problemas com o output do arquivo indo para o diretório do compilador ao invés do diretório do projeto
+    */
     char absolutePath[FILENAME_MAX];
     if (!_fullpath(absolutePath, __FILE__, FILENAME_MAX)) {
-        cerr << "Erro ao obter o caminho absoluto do arquivo." << endl;
+        cerr << "Erro ao obter o caminho absoluto do arquivo." << "\n";
         return 1;
     }
     string path_file(absolutePath);
@@ -33,24 +46,24 @@ int main () {
 
     string nome_arquivo = path_file + "futebol.txt";
 
-    int opcao_menu_principal = 0;
-    int opcao_setor = 0;
-    int opcao_categoria = 0;
-    
-    char delimitador = ',';
+    int menu_opcao = 0, setor = 0, categoria = 0, ingressos_quantidade = 0;    
+    char delimitador = ' ';
+
+    int setor_precos[4] = {98, 125, 160, 350};
+    float categoria_desconto[4] = {1.0, 0.5f, 0.5f, 0.0f};
+    int ingressos_setor_categoria[4][4] = {0}; 
+
     do {
-
-
             cout << "Menu:\n\n";
             cout << "1 - Comprar Ingresso\n";
-            cout << "2 - Relatório de \n";
-            cout << "3 - Relatório de \n";
+            cout << "2 - Relatório de Setor\n";
+            cout << "3 - Relatório de Categoria\n";
             cout << "4 - Encerrar Partida. \n";
             cout << "0 - Encerrar o Programa.\n";
             cout << "Escolha uma opção: ";
-            cin >> opcao_menu_principal;
-            } while (opcao_menu_principal < 0 || opcao_menu_principal > 4);
-        switch (opcao_menu_principal)
+            cin >> menu_opcao;
+            
+        switch (menu_opcao)
         {
         case 1: 
         {
@@ -71,10 +84,11 @@ int main () {
                 cout << "3 - Cadeira Central\n";
                 cout << "4 - Camarote\n";
                 cout << "Escolha uma opção: ";
-                cin >> opcao_setor;
-            } while (opcao_setor < 1 || opcao_setor > 4);
+                cin >> setor;
+            } while (setor < 1 || setor > 4);
 
-            comprar_ingresso << opcao_setor << delimitador;
+            comprar_ingresso << setor << delimitador;
+            
 
             // Escolha da categoria
             cout << "Informe o tipo de categoria: \n";
@@ -85,63 +99,143 @@ int main () {
                 cout << "3 - Sócio (50%)\n";
                 cout << "4 - Proprietário (100%)\n";
                 cout << "Escolha uma opção: ";
-                cin >> opcao_categoria;
-            } while (opcao_categoria < 1 || opcao_categoria > 4);
+                cin >> categoria;
+            } while (categoria < 1 || categoria > 4);
 
-            comprar_ingresso << opcao_categoria << delimitador;
+            comprar_ingresso << categoria << delimitador;
 
             // Quantidade de ingressos
-            int ingressos_quantidade = 0;
             do {
                 cout << "Informe a quantidade de ingressos: ";
                 cin >> ingressos_quantidade;
             } while (ingressos_quantidade <= 0);
-            comprar_ingresso << ingressos_quantidade << '\n';
 
+            comprar_ingresso << ingressos_quantidade << '\n';
             comprar_ingresso.close();
+
+            system("pause");
+            system("cls");    
             break;
         }
 
         case 2:
+            {
+            // Zera as estruturas de dados para evitar contagem em dobro
+            double faturamento_setor[4] = {0.0}, faturamento_total_geral = 0;
+            zerarMatriz(ingressos_setor_categoria);
+            system("cls");
+            ifstream relatorio_setor(nome_arquivo, ios::in);
+            if(!relatorio_setor) {
+                cout << "Arquivo nao foi aberto.\n";
+                break;
+            }   
+
+            while( relatorio_setor >> setor >> categoria >> ingressos_quantidade){
+                if ((setor >= 1 && setor <= 4) && (categoria >= 1 && categoria <= 4))
+                {
+                    ingressos_setor_categoria[setor - 1][categoria - 1] += ingressos_quantidade;
+                }
+            }
+            relatorio_setor.close();
+            for (int s = 0; s < 4; s++)
+            {
+                for (int c = 0; c < 4; c++)
+                {
+                    faturamento_setor[s] += ingressos_setor_categoria[s][c] * categoria_desconto[c] * setor_precos[s];
+                }
+            }
+
+            
+            for (int s = 0; s < 4; s++)
+            {
+                faturamento_total_geral += faturamento_setor[s];
+            }
+
+
+            cout << "Faturamento total: R$ " << faturamento_total_geral<< "\n";
+            cout << "------------------------------------------------\n";
+            cout << "Faturamento do setor da arquibancada: R$ " << faturamento_setor[0] << "\n";
+            cout << "Faturamento do setor da cadeira lateral: R$ " << faturamento_setor[1]<< "\n";
+            cout << "Faturamento do setor da cadeira central: R$ " << faturamento_setor[2]<< "\n";
+            cout << "Faturamento do setor do camarote: R$ " << faturamento_setor[3]<< "\n";
+
+            cout << "\nPressione qualquer tecla para voltar ao menu...";
+
+            system("pause");
+            system("cls");
+
             break;
-        case 3:
-            cout << "Relatório de total vendido por categoria\n";
+            }
+        case 3:{
+            // Zera as estruturas de dados para evitar contagem em dobro
+            double faturamento_categoria[4] = {0.0}, faturamento_total_geral = 0;
+            zerarMatriz(ingressos_setor_categoria);            
+            system("cls");
+            cout << "--- Relatório de Faturamento por Categoria ---\n";
+            ifstream relatorio_categoria(nome_arquivo);
+            if (!relatorio_categoria) {
+                cout << "Arquivo de vendas nao encontrado ou vazio.\n";
+                break;
+            }
+            
+
+
+
+            // Lê o arquivo e preenche a matriz
+            while (relatorio_categoria >> setor >> categoria >> ingressos_quantidade) {
+                if ((setor >= 1 && setor <= 4) && (categoria >= 1 && categoria <= 4)) {
+                    ingressos_setor_categoria[setor - 1][categoria - 1] += ingressos_quantidade;
+                }
+            }
+            relatorio_categoria.close();
+
+            // Calcula o faturamento, iterando por cada categoria e setor
+            for (int c = 0; c < 4; c++) {
+                for (int s = 0; s < 4; s++) {
+                    faturamento_categoria[c] += ingressos_setor_categoria[s][c] * categoria_desconto[c] * setor_precos[s];
+                }
+            }
+
+            for (int s = 0; s < 4; s++)
+            {
+                faturamento_total_geral += faturamento_categoria[s];
+            }
+            
+            // Exibe os resultados
+            cout.precision(2);
+            cout << fixed;
+
+            cout << "Faturamento total: R$ " << faturamento_total_geral<< "\n";
+            cout << "------------------------------------------------\n";
+            cout << "Torcedor comum: R$ " << faturamento_categoria[0] << "\n";
+            cout << "Idoso ou Estudante: R$ " << faturamento_categoria[1] << "\n";
+            cout << "Sócio: R$ " << faturamento_categoria[2] << "\n";
+            cout << "Proprietário: R$ " << faturamento_categoria[3] << "\n";
+
+            system("pause");
+            system("cls");            
             break;
-        case 4:
-            // Encerrar Partida (implementar)
-            cout << "Encerrando partida...\n";
+        }
+
+        case 4:{
+        // Apaga o conteúdo do arquivo para "encerrar a partida"
+            ofstream encerrar_partida(nome_arquivo, ios::trunc);
+            encerrar_partida.close();
+            cout << "Partida encerrada. O arquivo de venda de ingressos foi limpo.\n";
+            system("pause");
+            system("cls");            
             break;
+        }
         case 0:
             cout << "Encerrando o programa...\n";
             break;
         default:
-            cout << "Opção inválida!\n";
+            cout << "Opção inválida! Tente novamente.\n";
+            system("pause");
+            system("cls");
             break;
             }
 }
-
-
-/* 
-leitura de cadeiras           
-if (opcao_cadeira == 1) {
-    cadeira_escolhida = valor_arquibancada;
-} else if (opcao_cadeira == 2) {
-    cadeira_escolhida = valor_cadeira_lateral;
-} else if (opcao_cadeira == 3) {
-    cadeira_escolhida = valor_cadeira_central;
-} else if (opcao_cadeira == 4) {
-    cadeira_escolhida = valor_camarote;
+ while (menu_opcao != 0);
+ return 0;
 }
-// leitura de desconto
-double desconto = 1.0;
-if (opcao_desconto == 1) {
-    desconto = 1.0;
-} 
-else if (opcao_desconto == 2 || opcao_desconto == 3) {
-    desconto = 0.5;
-}
-else if (opcao_desconto == 4) {
-    desconto = 0;
-}
-*/
-
