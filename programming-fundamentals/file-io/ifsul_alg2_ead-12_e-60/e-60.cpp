@@ -1,23 +1,25 @@
 /*
     Autor: Pedro H.C Rossetto (Adaptado)
     Data: 10/11/2025
-    Descrição: Controle de venda de ingressos (Adaptado para Ponteiros e Alocação Dinâmica)
+    Descrição: Controle de venda de ingressos (Corrigido)
 */
 
 #include <iostream>
 #include <fstream>
 #include <cstring>
 #include <iomanip>
-#include <cstdlib> // Necessário para alocação dinâmica se usasse malloc/free, mas usaremos new/delete do C++
+#include <cstdlib> 
 
 using namespace std;
 
 int main() {
-    // ALOCAÇÃO DINÂMICA: Substituindo vetores estáticos por ponteiros para áreas alocadas dinamicamente
+    system("cls"); // Comando solicitado
+
+    // ALOCAÇÃO DINÂMICA
     int *v1 = new int[100];
     int *v2 = new int[100];
 
-    // Verificação simples da alocação
+    // Verificação da alocação
     if (!v1 || !v2) {
         cout << "Erro de alocacao de memoria.\n";
         return 1;
@@ -25,6 +27,13 @@ int main() {
 
     int n_elem_v1 = 0, n_elem_v2 = 0;
     long long int soma_v1 = 0, soma_v2 = 0;
+
+    // --- CORREÇÃO: Declaração das variáveis que faltavam ---
+    char operador[20];    // Para armazenar "adiciona", "mostra", etc.
+    char vetor_nome[10];  // Para armazenar "V1" ou "V2"
+    char formato[10];     // Para armazenar "int"
+    int valor;            // Para armazenar o número lido
+    // -------------------------------------------------------
 
     ofstream escrita_saida("arquivo_saida_e60.txt");
     if (!escrita_saida) {
@@ -37,6 +46,7 @@ int main() {
     ifstream leitura_entradas("arquivo_entrada_e60.txt");
     if (!leitura_entradas) {
         cout << "Arquivo entrada nao foi aberto.\n";
+        // Se não abriu entrada, fecha saida antes de sair
         escrita_saida.close();
         delete[] v1;
         delete[] v2;
@@ -49,6 +59,7 @@ int main() {
         // --- Operação ADICIONA ---
         if (strcmp(operador, "adiciona") == 0) {
             leitura_entradas >> vetor_nome >> valor;
+            
             if (strcmp(vetor_nome, "V1") == 0) {
                 if (n_elem_v1 < 100) {
                     // ARITMÉTICA DE PONTEIRO: *(base + deslocamento) = valor
@@ -58,7 +69,6 @@ int main() {
                 }
             } else if (strcmp(vetor_nome, "V2") == 0) {
                 if (n_elem_v2 < 100) {
-                    // ARITMÉTICA DE PONTEIRO
                     *(v2 + n_elem_v2) = valor;
                     soma_v2 += valor;
                     n_elem_v2++;
@@ -72,7 +82,6 @@ int main() {
             leitura_entradas >> vetor_nome >> formato;
             escrita_saida << vetor_nome << "(" << formato << "): ";
 
-            // Ponteiros auxiliares para o percurso
             int *ptr_inicio = nullptr;
             int *ptr_fim = nullptr;
             int *p = nullptr;
@@ -80,18 +89,17 @@ int main() {
             // Define qual vetor será percorrido
             if (strcmp(vetor_nome, "V1") == 0) {
                 ptr_inicio = v1;
-                ptr_fim = v1 + n_elem_v1; // Aponta para a posição logo após o último elemento válido
+                ptr_fim = v1 + n_elem_v1; 
             } else if (strcmp(vetor_nome, "V2") == 0) {
                 ptr_inicio = v2;
                 ptr_fim = v2 + n_elem_v2;
             }
 
-            // PERCURSO COM ARITMÉTICA DE PONTEIRO (sem variáveis de índice como 'i')
+            // PERCURSO COM ARITMÉTICA DE PONTEIRO
             if (ptr_inicio != nullptr) {
                 for (p = ptr_inicio; p < ptr_fim; p++) {
                     escrita_saida << *p;
                     // Verifica se não é o último elemento para adicionar a vírgula
-                    // Usa aritmética de ponteiros para verificar: se p é menor que o endereço do último elemento
                     if (p < ptr_fim - 1) {
                         escrita_saida << ", ";
                     }
@@ -135,11 +143,11 @@ int main() {
     escrita_saida.close();
     leitura_entradas.close();
 
-    // LIBERAÇÃO DE MEMÓRIA (Essencial para alocação dinâmica)
+    // LIBERAÇÃO DE MEMÓRIA
     delete[] v1;
     delete[] v2;
 
-    cout << "Codigo executado com sucesso.\n";
+    cout << "Codigo executado com sucesso. Verifique arquivo_saida_e60.txt.\n";
 
     return 0;
 }
