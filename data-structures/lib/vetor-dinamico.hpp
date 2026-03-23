@@ -20,6 +20,15 @@ int* alocar_vetor(int tamanho) {
 }
 
 /**
+ * Aloca dinamicamente um vetor de qualquer tipo T.
+ */
+template <typename T>
+T* alocar_vetor_generico(int tamanho) {
+    if (tamanho <= 0) return nullptr;
+    return new T[tamanho];
+}
+
+/**
  * Preenche o vetor com valores aleatórios em um intervalo fechado [min, max].
  */
 void preencher_aleatorio(int* v, int tam, int min, int max) {
@@ -45,9 +54,20 @@ void mostrar_vetor(const int* v, int tam) {
 }
 
 /**
- * Libera a memória e anula o ponteiro para evitar erros.
+ * Libera a memória e anula o ponteiro de inteiros para evitar erros.
  */
 void liberar_vetor(int* &v) {
+    if (v != nullptr) {
+        delete[] v;
+        v = nullptr;
+    }
+}
+
+/**
+ * Libera a memória de um vetor de qualquer tipo e anula o ponteiro.
+ */
+template <typename T>
+void liberar_vetor_generico(T* &v) {
     if (v != nullptr) {
         delete[] v;
         v = nullptr;

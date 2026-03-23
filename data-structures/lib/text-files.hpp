@@ -4,25 +4,53 @@
 
 #include <iostream>
 #include <fstream>
+#include <string>
+#include <cstring> // Para strerror
+#include <cerrno>  // Para errno
 
-int contar_linhas(std::string nome_arquivo) {
-    std::ifstream arquivo(nome_arquivo);
-    int contador = 0;
-    std::string linha;
+
+/**
+ * Tenta abrir um arquivo para leitura e fornece feedback detalhado em caso de falha.
+ * @param arquivo Referência para o objeto ifstream.
+ * @param caminho String com o caminho do arquivo.
+ * @return true se abriu com sucesso, false caso contrário.
+ */
+bool abrir_arquivo(std::ifstream &arquivo, const std::string &caminho) {
+    arquivo.open(caminho);
 
     if (!arquivo.is_open()) {
-        std::cerr << "Erro ao abrir o arquivo: " << nome_arquivo << std::endl;
-        return -1; // Retorna -1 para indicar erro
+        std::cerr << "\n[ERRO DE DEBUG]" << std::endl;
+        std::cerr << "Caminho tentado: " << caminho << std::endl;
+        std::cerr << "Causa provavel: " << std::strerror(errno) << std::endl;
+        
+        // Dicas úteis de debug baseadas no erro comum
+        if (errno == ENOENT) {
+            std::cerr << "Dica: Verifique se o arquivo esta na pasta correta ou se a extensao (.txt) nao esta duplicada." << std::endl;
+        } else if (errno == EACCES) {
+            std::cerr << "Dica: O arquivo pode estar sendo usado por outro programa (como Excel)." << std::endl;
+        }
+        
+        return false;
     }
 
-    // O laço continua enquanto houver linhas para ler
-    while (std::getline(arquivo, linha)) {
-        contador++;
-    }
+    return true;
+}
 
-    arquivo.close();
+
+
+/**
+ * Conta quantas linhas existem em um arquivo e reseta o ponteiro de leitura.
+ */
+int contar_linhas(std::ifstream &arquivo) {
+    int contador = 0;
+    std::string linha;
+    while (std::getline(arquivo, linha)) contador++;
+    
+    arquivo.clear();
+    arquivo.seekg(0);
     return contador;
 }
+
 
 #endif
 
