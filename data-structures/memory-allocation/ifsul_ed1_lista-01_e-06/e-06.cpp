@@ -16,7 +16,7 @@ struct Temperatura
     Temperatura(){
         dia = "";
         temp_min = 0.0;
-        temp_max = 0.0;
+        // // temp_max = 0.0;
     }
 
     Temperatura(string d, float t_min, float t_max){

@@ -5,6 +5,7 @@
 
 using namespace std;
 
+
 struct Cliente{
     int codigo;
     string nome;
