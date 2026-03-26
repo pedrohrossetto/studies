@@ -137,7 +137,7 @@ bool buscaP(Pilha<T> *p, T valor)
  * valorBusca: O valor que você está procurando
  */
 template <typename T, typename V>
-bool buscaP(Pilha<T> *p, V T::*campo, V valorBusca)
+bool buscaP(Pilha<T> *p, V T::*campo, V valorBusca) 
 {
     // Percorre a pilha do topo para a base
     for(int i = p->topo; i > p->base; i--)
