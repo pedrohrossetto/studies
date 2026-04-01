@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <string>
+#include <cstdlib> // Para rand() e srand()
+#include <ctime>   // Para time()
 
 template <typename T>
 struct Pilha
@@ -271,5 +273,48 @@ bool comparaP(Pilha<T> *p1, Pilha<T> *p2) {
     return true; // Se percorreu tudo, são iguais
 }
 
+
+
+
+
+/**
+ * Preenche a pilha de inteiros.
+ * p: Ponteiro para a pilha.
+ * isAleatorio: Se true, gera números (0-99). Se false, solicita input do usuário.
+ */
+void preencheP(Pilha<int> *p, bool isAleatorio)
+{
+    if (isAleatorio)
+    {
+        // Inicializa a semente apenas uma vez
+        static bool semente_ok = false;
+        if (!semente_ok) { srand(time(NULL)); semente_ok = true; }
+
+        while (!cheiaP(p))
+        {
+            empilhaP(p, rand() % 100);
+        }
+        std::cout << "Pilha preenchida com valores aleatorios." << std::endl;
+    }
+    else
+    {
+        int valor;
+        while (!cheiaP(p))
+        {
+            std::cout << "Digite o valor para a posicao [" << p->topo + 1 << "]: ";
+            if (std::cin >> valor)
+            {
+                empilhaP(p, valor);
+            }
+            else
+            {
+                // Trata erro de input (ex: digitar letra em vez de número)
+                std::cout << "Entrada invalida. Tente novamente." << std::endl;
+                std::cin.clear();
+                std::cin.ignore();
+            }
+        }
+    }
+}
 
 #endif
