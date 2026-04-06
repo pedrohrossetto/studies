@@ -316,5 +316,34 @@ void preencheP(Pilha<int> *p, bool isAleatorio)
         }
     }
 }
+/**
+ * Recebe uma pilha e retorna uma NOVA pilha com os elementos copiados
+ * A pilha original 'p' será esvaziada durante o processo.
+ */
+template <typename T>
+Pilha<T> copiaP(Pilha<T> *p)
+{
+    // 1. Criar e inicializar a nova pilha com o mesmo tamanho da original
+    Pilha<T> pilhaInvertida,pilhaFinal;
+    inicializaP(&pilhaInvertida, p->tam);
+    inicializaP(&pilhaFinal, p->tam);
 
+
+    // 2. Enquanto a original não estiver vazia, transfere os dados
+    while (!vaziaP(p))
+    {
+        T valor = desempilhaP(p);
+        empilhaP(&pilhaInvertida, valor);
+    }
+    while (!vaziaP(&pilhaInvertida))
+    {
+        T valor = desempilhaP(&pilhaInvertida);
+        empilhaP(p,valor);
+        empilhaP(&pilhaFinal,valor);
+    }
+    
+    destroiP(&pilhaInvertida);
+    // 3. Retorna a estrutura da nova pilha
+    return pilhaFinal;
+}
 #endif

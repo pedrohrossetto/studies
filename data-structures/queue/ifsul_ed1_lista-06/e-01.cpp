@@ -144,7 +144,7 @@ int main(void)
 
         comando = "";
     }
-    cout << "Programa finalizado.";
+    cout << "\n\nPrograma finalizado.\n\n";
     return EXIT_SUCCESS;
 }
 
