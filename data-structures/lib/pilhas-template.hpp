@@ -346,4 +346,40 @@ Pilha<T> copiaP(Pilha<T> *p)
     // 3. Retorna a estrutura da nova pilha
     return pilhaFinal;
 }
+
+template <typename T>
+Pilha<T> intercalaP(Pilha<T> *p1, Pilha <T> *p2){
+
+    // 1. Criar e inicializar a nova pilha com o mesmo tamanho da original
+    Pilha<T> PilhaAux;
+    T valor;
+    int tamanhoNecessario = p1->tam + p2->tam;
+    inicializaP(&PilhaAux, tamanhoNecessario);
+
+    // std::cout << tamanhoNecessario;
+    
+
+    // 2. Enquanto a original não estiver vazia, transfere os dados
+    while (!vaziaP(p1) || !vaziaP(p2)  )
+    {   
+        if (!vaziaP(p1))
+        {
+            valor = desempilhaP(p1);
+            empilhaP(&PilhaAux, valor);
+        }
+        if ((!vaziaP(p2)))
+        {
+            valor = desempilhaP(p2);
+            empilhaP(&PilhaAux, valor);
+        }
+         
+        
+    }
+    // 3. Retorna a estrutura da nova pilha
+    Pilha pilhaNova = inverteP(&PilhaAux);
+    destroiP(&PilhaAux);
+    return pilhaNova;
+
+
+}
 #endif
