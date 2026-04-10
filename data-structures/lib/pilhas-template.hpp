@@ -380,6 +380,71 @@ Pilha<T> intercalaP(Pilha<T> *p1, Pilha <T> *p2){
     destroiP(&PilhaAux);
     return pilhaNova;
 
+   
+}
+void estatisticaP(Pilha<int> *p1, int *menor, int *maior, float *media){
+    int soma_total = 0, counter = 0;
+    // Percorre a pilha do topo para a base
+    for(int i = p1->topo; i > p1->base; i--){
+        if( i == p1->topo){
+            *menor = *maior = p1->dados[i];
+        }
+        if( p1->dados[i] < *menor)
+            {*menor = p1->dados[i];};
+        if( p1->dados[i] > *maior)
+            {*maior = p1->dados[i];};
+        soma_total += p1->dados[i];
+        counter++;
+    }
+    float total_final = (float)soma_total;
+    float counter_final = (float)counter;
+    *media = total_final/counter_final;
 
 }
+
+
+float mediaP(Pilha<int> *p1){
+    float soma_total = 0.0, media = 0.0;
+    int counter = 0;
+    // Percorre a pilha do topo para a base
+    for(int i = p1->topo; i > p1->base; i--){
+        soma_total += p1->dados[i];
+        counter++;
+    }
+    media = soma_total/counter;
+    return media;
+}
+
+template <typename T>
+T maiorP(Pilha<T> *p1){
+     // Validação de Pilha vazia
+    if (p1->topo == p1->base) return T{};
+    // Inicia com o elemento do topo
+    T maior = p1->dados[p1->topo];
+    // Percorre a pilha do topo para a base
+    for(int i = p1->topo; i > p1->base; i--){
+        if( i == p1->topo)
+        if( p1->dados[i] > maior)
+            {maior = p1->dados[i];};
+    }
+    return maior;
+}
+
+template <typename T>
+T menorP(Pilha<T> *p1){
+     // Validação de Pilha vazia
+    if (p1->topo == p1->base) return T{};
+    // Inicia com o elemento do topo
+    T menor = p1->dados[p1->topo];
+    // Percorre a pilha do topo para a base
+    for(int i = p1->topo; i > p1->base; i--){
+        if( i == p1->topo)
+        if( p1->dados[i] < menor)
+            {menor = p1->dados[i];};
+    }
+    return menor;
+}
+
+
+
 #endif
