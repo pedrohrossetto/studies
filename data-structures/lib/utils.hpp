@@ -44,5 +44,17 @@ void pausar_e_limpar() {
     system("cls");
 }
 
+void inverteString(std::string &str) {
+    int n = str.length();
+    
+    // Percorre apenas até a metade da string
+    for (int i = 0; i < n / 2; i++) {
+        // Lógica de troca manual (sem usar std::swap se preferir)
+        char temp = str[i];
+        str[i] = str[n - i - 1];
+        str[n - i - 1] = temp;
+    }
+}
+
 
 #endif
