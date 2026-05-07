@@ -1,13 +1,17 @@
 from typing import Optional
-from Item import Item
+from item import Item, TipoItem
 from missao import *
-from Item import *
 
 class Personagem:
-    def __init__(self, nome, vida, nivel, xp):
+    def __init__(self, nome, nivel, xp):
         self._nome = nome
-        self._vida = vida    
         self._nivel = nivel
+        self._vida_base = 10 * nivel    
+        self._ataque_base = 10 * nivel
+        self._vida_vigente = self._vida_base
+        self._ataque_vigente = self._ataque_base
+        self._protecao_fisica = 0
+        self._protecao_magica = 0
         self._xp = xp
         self.__missoes = []
         self.__inventario = []
@@ -24,8 +28,20 @@ class Personagem:
             raise ValueError("Nome deve ser uma string não vazia")
 
     @property
+    def vida_base(self):
+        return self._vida_base
+    
+    @property
+    def ataque_base(self):
+        return self._ataque_base
+
+    @property
     def vida(self):
-        return self._vida
+        return self._vida_vigente
+
+    @property
+    def ataque(self):
+        return self._ataque_vigente
 
     @property
     def nivel(self):
@@ -34,12 +50,31 @@ class Personagem:
     @property
     def xp(self):
         return self._xp
+    
+    @property
+    def missoes(self):
+        return self.__missoes
+    
+    @property
+    def inventario(self):
+        return self.__inventario
+    
+    @property
+    def equipamentos(self): 
+        return self.__equipamentos
 
     def exibir_informacoes(self):
         print(f"Nome: {self.nome}")
-        print(f"Vida: {self.vida}")
+        print(f"Vida Base: {self.vida_base}")
+        print(f"Ataque Base: {self.ataque_base}")
+        print(f"Vida Atual: {self.vida}")
+        print(f"Ataque Atual: {self.ataque}")
         print(f"Nível: {self.nivel}")
         print(f"XP: {self.xp}")
+        print(f"Missões Ativas: {[missao.nome for missao in self.missoes]}")
+        print(f"Inventário: {[item.nome for item in self.inventario]}")
+        print(f"Equipamentos: {[item.nome if item else 'Nenhum' for item in self.equipamentos.values()]}")
+
 
     def iniciar_missao_p(self,missao:Missao):
         if missao not in self.__missoes:
@@ -86,19 +121,33 @@ class Personagem:
                 print(f"Erro ao adicionar o item '{item.nome}' ao inventário de {self.nome}.")
         else:
             print(f"Item '{item.nome}' já existe no inventário de {self.nome}.")
+    def adicionar_itens_inventario(self, itens: list):
+        for item in itens:
+            self.adicionar_item_inventario(item)
+
+    def remover_item_inventario(self, item: Item):
+        if item in self.__inventario:
+            try:
+                self.__inventario.remove(item)
+                print(f"Item '{item.nome}' removido do inventário de {self.nome}.")
+            except ValueError:
+                print(f"Erro ao remover o item '{item.nome}' do inventário de {self.nome}.")
+        else:
+            print(f"Item '{item.nome}' não encontrado no inventário de {self.nome}.")
+
+    def remover_itens_inventario(self, itens: list):
+        for item in itens:
+            self.remover_item_inventario(item)
 
     def equipar_item(self, item: Item):
         if item not in self.__inventario:
             print(f"Item '{item.nome}' não encontrado no inventário.")
             return
-
         try:
             # 1. Descobrimos o slot (a chave do dicionário) através do tipo do item
             slot = item.tipo 
-
             # 2. Verificamos se já existe algo equipado nesse slot
             item_antigo = self.__equipamentos[slot]
-
             if item_antigo is not None:
                 # Se existia algo, devolvemos para o inventário
                 self.__inventario.append(item_antigo)
@@ -111,6 +160,7 @@ class Personagem:
             self.__equipamentos[slot] = item
 
             print(f"Item '{item.nome}' equipado no slot {slot.value} por {self.nome}.")
+            item.aplicar_ao_personagem(self)  # Aplicamos o efeito do item ao personagem
             item.exibir_informacoes() # Chamada direta se o método for de instância
 
         except ValueError:
@@ -119,11 +169,15 @@ class Personagem:
         # Lógica de equipar o item (a ser implementada)
     def desequipar_slot(self, tipo_slot: TipoItem):
         item = self.__equipamentos[tipo_slot]
-        if item:
-            self.__equipamentos[tipo_slot] = None
-            self.__inventario.append(item)
-            print(f"{item.nome} movido para o inventário.")
-        
+        try:
+            if item:
+                self.__equipamentos[tipo_slot] = None
+                self.__inventario.append(item)
+
+                print(f"{item.nome} movido para o inventário.")
+        except ValueError:
+            print(f"Erro ao desequipar o item do slot {tipo_slot.value}.")
+
     def equipar_itens(self, itens: list):
         for item in itens:
             self.equipar_item(item)
