@@ -172,9 +172,38 @@ void mapearNovoNoApos(No *no, int valor){
         atual = atual->prox;
     }
     // Lista Vazia e se não possui pares
-    if (atual == NULL) {return;}
+    if (atual != NULL) 
+    {
+        mapearNovoNoApos(atual, valor);
+    }
+    return;
     
-    mapearNovoNoApos(atual, valor);
+}
+
+void insereAntesPrimeiroPar(No **lista, int valor){
+    No *atual = *lista;
+    No *anterior = NULL;
+    ///fica no while enquanto tiver elementos na lista
+    /// e nao encontrar no com valor par
+    while(atual!=NULL && atual->dado % 2 != 0)
+    {
+        anterior = atual;
+        atual = atual->prox;
+    }
+    // Lista Vazia e se não possui pares
+    if (atual) // anterior != NULL 
+    {
+        No *novo = new No(valor, atual);
+        if(!anterior) // anterior == NULL
+        {
+            *lista = novo;
+        }
+        else
+        {
+            anterior->prox = novo;
+        }
+    }
+    return;
 }
 
 #endif // _HPP_LISTA_DINAMICA
