@@ -1,6 +1,7 @@
 from typing import Optional
 from item import Item, TipoItem
 from missao import *
+import os
 
 class Personagem:
     def __init__(self, nome, nivel, xp):
@@ -138,6 +139,18 @@ class Personagem:
     def remover_itens_inventario(self, itens: list):
         for item in itens:
             self.remover_item_inventario(item)
+        
+    def exibir_inventario(self):
+        print(f"Inventário de {self._nome}")
+        for item in self.inventario:
+            indice = self.inventario.index(item)
+            print(f" {indice}. {item.nome} - {str(item.tipo.value).title()}")
+            
+    def exibir_equipamentos(self):
+        print(f"Equipamentos de {self._nome}")
+        for slot, item in self.equipamentos.items():
+            nome_item = item.nome if item is not None else 'Nenhum'
+            print(f"{slot.tipo_item} - {nome_item}")
 
     def equipar_item(self, item: Item):
         if item not in self.__inventario:
@@ -159,7 +172,7 @@ class Personagem:
             # 4. Colocamos o novo item no dicionário de equipamentos
             self.__equipamentos[slot] = item
 
-            print(f"Item '{item.nome}' equipado no slot {slot.value} por {self.nome}.")
+            print(f"Item '{item.nome}' equipado no slot {str(slot.tipo_item).title()} por {self.nome}.")
             item.aplicar_ao_personagem(self)  # Aplicamos o efeito do item ao personagem
             item.exibir_informacoes() # Chamada direta se o método for de instância
 
@@ -181,7 +194,53 @@ class Personagem:
     def equipar_itens(self, itens: list):
         for item in itens:
             self.equipar_item(item)
+    def equipar_para_missao(self):
+        mensagem = ""
+        # Adicionado os parênteses no .lower()
+        while mensagem.lower() != "iniciar":
+            print("\n=== Preparação para a Missão ===")
+            self.exibir_inventario()
+            
+            mensagem = input("\nDigite 'Iniciar' para partir, 'Status', 'Equipamentos' ou o NOME/NÚMERO do item: ").strip()
 
+            # 1. Comandos de Verificação
+            if mensagem.lower() == "status":
+                self.exibir_informacoes()
+                input("\nPressione Enter para Continuar:\n")
+                os.system('cls')
+                continue # Volta para o início do loop
+            
+            if mensagem.lower() == "equipamentos":
+                self.exibir_equipamentos()
+                input("\nPressione Enter para Continuar:\n")
+                os.system('cls')
+                continue
+
+            if mensagem.lower() == "iniciar":
+                break
+
+            # 2. Lógica de Equipar por Índice (Número)
+            if mensagem.isdecimal():
+                indice = int(mensagem)
+                if 0 <= indice < len(self.inventario):
+                    self.equipar_item(self.inventario[indice])
+                else:
+                    print("Erro: Posição inválida no inventário.")
+            
+            # 3. Lógica de Equipar por Nome (Texto)
+            else:
+                # Uso do next com valor padrão None para evitar exceções
+                item_escolhido = next((item for item in self.inventario if item.nome.lower() == mensagem.lower()), None)
+                
+                
+                if item_escolhido:
+                    self.equipar_item(item_escolhido)
+                    input("\nPressione Enter para Continuar:\n")
+                    os.system('cls')
+                else:
+                    print(f"Item '{mensagem}' não encontrado.")
+
+        print("--- Preparação finalizada. Iniciando missão! ---")
 
 
     def __str__(self):

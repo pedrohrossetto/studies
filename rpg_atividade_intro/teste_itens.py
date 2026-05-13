@@ -1,5 +1,10 @@
 from personagem import Personagem
 from item import Item, TipoItem
+import os
+
+
+input("Pressione Enter para Iniciar O RPG TOO:\n")
+os.system('cls')
 
 p_Pedro = Personagem(nome="Pedro", nivel=1,xp=0)
 
@@ -11,7 +16,24 @@ utilitario_pocao_vida = Item(nome="Poção de Vida Pequena", descricao="Uma poç
 
 p_Pedro.adicionar_itens_inventario([arma_espada_ferro, vestimenta_cota_malha, utilitario_pocao_vida])
 
-p_Pedro.equipar_item(arma_espada_ferro)
-p_Pedro.equipar_item(vestimenta_cota_malha)
 
-p_Pedro.exibir_informacoes()
+# input("Pressione Enter para Continuar:\n")
+# os.system('cls')
+
+# p_Pedro.equipar_item(arma_espada_ferro)
+
+# input("Pressione Enter para Continuar:\n")
+# os.system('cls')
+
+# p_Pedro.equipar_item(vestimenta_cota_malha)
+
+# input("Pressione Enter para Continuar:\n")
+# os.system('cls')
+
+# p_Pedro.exibir_informacoes()
+
+
+input("Pressione Enter para Continuar:\n")
+os.system('cls')
+
+p_Pedro.equipar_para_missao()
