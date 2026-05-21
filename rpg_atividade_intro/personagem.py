@@ -77,40 +77,32 @@ class Personagem:
         print(f"Equipamentos: {[item.nome if item else 'Nenhum' for item in self.equipamentos.values()]}")
 
 
-    def iniciar_missao_p(self,missao:Missao):
+    def iniciar_missao_p(self, missao: Missao):
         if missao not in self.__missoes:
-            try:
+            # 1. Delega a ação para o estado. O próprio estado vai printar o sucesso ou o erro.
+            foi_iniciada = missao.iniciar()
+            
+            # 2. O personagem apenas reage internamente guardando a missão se deu certo
+            if foi_iniciada:
                 self.__missoes.append(missao)
-            except:
-                 raise ValueError
-            try:
-                missao.iniciar_missao()
-            except:
-                raise ValueError      
             return
         else:
-            print(f"Missão já iniciada para o personagem {self.nome}")
+            print(f"Missão já está registrada para o personagem {self.nome}")
             return
         
-    def progredir_missao(self, missao, progresso: int):
-        # 1. Validação de segurança
+    def progredir_missao(self, missao: Missao):
         if missao not in self.__missoes:
             print(f"Missão não atribuída a {self.nome}")
             return
-
-        # 2. Lógica de progresso (Polimórfica)
-        # Todos os tipos de missão agora possuem a propriedade .objetivo
-        alvo = missao.valor_objetivo 
-
-        if progresso >= alvo:
-            missao.concluir_missao()
+            
+        # O próprio estado vai printar "Progresso X/Y" ou as mensagens de erro.
+        foi_concluida = missao.concluir()
+        
+        # O personagem só se importa em entregar o prêmio se o estado confirmar a vitória
+        if foi_concluida:
             self._xp += missao.recompensa
-            print(f"\n--- MISSÃO CONCLUÍDA ---")
-            print(f"Missão: {missao.nome}")
-            print(f"Recompensa: {missao.recompensa} XP")
+            print(f"\n--- RECOMPENSA FINANCEIRA/XP ENTREGUE ---")
             print(f"XP Total de {self.nome}: {self._xp}\n")
-        else:
-            print(f"Progresso em '{missao.nome}': {progresso}/{alvo}")
 
     def adicionar_item_inventario(self, item: Item):
         if item not in self.__inventario:

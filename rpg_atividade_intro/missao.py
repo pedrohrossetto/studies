@@ -1,29 +1,18 @@
-from enum import Enum
 from abc import ABC
+from typing import Any, Optional, TYPE_CHECKING, Type
 
-
-class StatusMissao(Enum):
-    PENDENTE = "PENDENTE"
-    EM_ANDAMENTO = "EM ANDAMENTO"
-    CONCLUIDA = "CONCLUIDA"
-    FRACASSADA = "FRACASSADA"
-
-
+if TYPE_CHECKING:
+    from status import EstadoMissao
 
 class Missao(ABC):
-    def __init__(self, nome, descricao, recompensa, status):
-
+    def __init__(self, nome: str, descricao: str, recompensa: Any, status_classe: Optional[Type['EstadoMissao']] = None):
         self.__nome = nome
         self.__descricao = descricao
         self.__recompensa = recompensa
-        self.__status = StatusMissao.PENDENTE
-        self.__status = status
         
-    
-
-    ## Getters e Setters com validação
-    
-    ## Nome
+        from status import EstadoPendente
+        classe_alvo = status_classe if status_classe is not None else EstadoPendente
+        self.__status = classe_alvo(self)
 
     @property
     def nome(self):
@@ -37,9 +26,6 @@ class Missao(ABC):
         if not nome_limpo:
             raise ValueError("Nome não pode estar vazio ou conter apenas espaços")
         self.__nome = nome_limpo
-    
-
-    ## Descrição
 
     @property
     def descricao(self):
@@ -48,9 +34,6 @@ class Missao(ABC):
     @descricao.setter
     def descricao(self, descricao):
         self.__descricao = descricao
-    
-
-    ## Recompensa
 
     @property
     def recompensa(self):
@@ -63,54 +46,30 @@ class Missao(ABC):
         if recompensa < 1 or recompensa > 50:
             raise ValueError("Recompensa deve ser um valor positivo entre 1 e 50")
         self.__recompensa = recompensa
-    
 
-    ## Status
-    
     @property
     def status(self):
         return self.__status
     
     @status.setter
     def status(self, status):
-        status_validos = [StatusMissao.PENDENTE, StatusMissao.EM_ANDAMENTO, StatusMissao.CONCLUIDA, StatusMissao.FRACASSADA]
-        
-        if status not in status_validos:
-            raise ValueError(f"Status deve ser um de: {status_validos}")
-        
-        transicoes_validas = {
-            StatusMissao.PENDENTE: [StatusMissao.PENDENTE, StatusMissao.EM_ANDAMENTO],
-            StatusMissao.EM_ANDAMENTO: [StatusMissao.EM_ANDAMENTO, StatusMissao.CONCLUIDA],
-            StatusMissao.CONCLUIDA: [StatusMissao.CONCLUIDA],
-            StatusMissao.FRACASSADA: [StatusMissao.FRACASSADA]
-        }
-        
-        if status not in transicoes_validas.get(self.__status, []):
-            raise ValueError(f"Transição de '{self.__status}' para '{status}' não é permitida. Fluxo esperado: PENDENTE -> EM ANDAMENTO -> CONCLUIDA")
-        
         self.__status = status
-
-
-    ## Funções
-
-    def iniciar_missao(self):
-        if self.status != StatusMissao.PENDENTE:
-            raise ValueError("A missão só pode ser iniciada se estiver no status PENDENTE")
-        self.status = StatusMissao.EM_ANDAMENTO
-        print(f"Missão '{self.nome}' iniciada!\nO Objetivo da Missão é: {self.descricao}")
-
-    def concluir_missao(self):
-        if self.status == StatusMissao.FRACASSADA:
-            raise ValueError("A missão já fracassou.")
-        if self.status == StatusMissao.PENDENTE:
-            raise ValueError("A missão só pode ser concluída se estiver EM ANDAMENTO.")
-        if self.status == StatusMissao.CONCLUIDA:
-            raise ValueError("A missão já foi concluída.")
-        self.status = StatusMissao.CONCLUIDA
-        print(f"Missão {self.nome} Concluída!")
-        print(f"A contabilidade do prêmio de {self.recompensa} XP agora está pronta para retirada financeira.")
     
+    def definir_estado(self, novo_estado):
+        self.status = novo_estado
+        
+    def iniciar(self) -> bool:
+        # Repassa para o estado e retorna o resultado booleano dele
+        return self.status.iniciar()
 
+    def concluir(self) -> bool:
+        # Repassa para o estado e retorna o resultado booleano dele
+        return self.status.concluir()
+        
+    def esta_concluida(self) -> bool:
+        from status import EstadoConcluida
+        # Ajustado para ler da propriedade pública 'status' para evitar erros de herança privada
+        return isinstance(self.status, EstadoConcluida)
 
     def exibir_informacoes(self):
         print("\n")
@@ -118,12 +77,10 @@ class Missao(ABC):
         print(f"Missão: {self.nome}")
         print(f"Descrição: {self.descricao}")
         print(f"Recompensa: {self.recompensa} XP")
-        print(f"Status: {self.status.value}")
-    
+        print(f"Status: {self.status.__class__.__name__}") # Mostra o nome da classe do estado
 
     def __str__(self):
-        return f"Missão: {self.nome} | Descrição: {self.descricao} | Recompensa: {self.recompensa} XP | Status: {self.status}"
-    
+        return f"Missão: {self.nome} | Descrição: {self.descricao} | Recompensa: {self.recompensa} XP | Status: {self.status.__class__.__name__}"
 
     def __eq__(self, outro):
         if not isinstance(outro, Missao):
@@ -135,8 +92,9 @@ class Missao(ABC):
 
 
 class MissaoCombate(Missao):
-    def __init__(self, nome, descricao, recompensa, inimigos_a_derrotar: int, inimigo: str, status):
-        super().__init__(nome, descricao, recompensa, status)
+    # Ajustado: status_classe agora vem por último e é opcional (= None)
+    def __init__(self, nome: str, descricao: str, recompensa: Any, inimigos_a_derrotar: int, inimigo: str, status_classe: Optional[Type['EstadoMissao']] = None):
+        super().__init__(nome, descricao, recompensa, status_classe)
         self.__inimigos_a_derrotar = inimigos_a_derrotar
         self.__inimigo = inimigo 
 
@@ -168,9 +126,11 @@ class MissaoCombate(Missao):
         print(f"Inimigo: {self.inimigo}")
         print(f"Quantidade a derrotar: {self.__inimigos_a_derrotar}")
 
+
 class MissaoColeta(Missao):
-    def __init__(self, nome, descricao, recompensa, item_necessario:str, quantidade_item : int, status):
-        super().__init__(nome, descricao, recompensa, status)
+    # Ajustado: status_classe agora vem por último e é opcional (= None)
+    def __init__(self, nome: str, descricao: str, recompensa: Any, item_necessario: str, quantidade_item: int, status_classe: Optional[Type['EstadoMissao']] = None):
+        super().__init__(nome, descricao, recompensa, status_classe)
         self.__item_necessario = item_necessario
         self.__quantidade_item = quantidade_item
 
@@ -180,7 +140,7 @@ class MissaoColeta(Missao):
     
     @valor_objetivo.setter
     def valor_objetivo(self, quantidade_item):
-        if not isinstance(quantidade_item, (int)):
+        if not isinstance(quantidade_item, int):
             raise ValueError("Deve ser um valor numérico")
         if quantidade_item < 1:
             raise ValueError("Deve ser um valor positivo")
@@ -192,26 +152,25 @@ class MissaoColeta(Missao):
     
     @item_necessario.setter
     def item_necessario(self, item_necessario):
-        if isinstance(item_necessario, (str)):
-                self.__item_necessario = item_necessario.strip().title()    
+        if isinstance(item_necessario, str):
+            self.__item_necessario = item_necessario.strip().title()    
         else: 
             raise ValueError("Deve ser um valor do tipo string")
-
 
     def exibir_informacoes(self):
         super().exibir_informacoes()
         print(f"Item a coletar: {self.__item_necessario}")
         print(f"Quantidade necessária: {self.__quantidade_item}")
 
+
 class MissaoExploracao(Missao):
-    def __init__(self, nome, descricao, recompensa, local: str, distancia: float, tempo_limite: float, status):
-        super().__init__(nome, descricao, recompensa, status)
-        # Chamando os setters para validação imediata
+    # Ajustado: status_classe agora vem por último e é opcional (= None)
+    def __init__(self, nome: str, descricao: str, recompensa: Any, local: str, distancia: float, tempo_limite: float, status_classe: Optional[Type['EstadoMissao']] = None):
+        super().__init__(nome, descricao, recompensa, status_classe)
         self.local = local
         self.distancia = distancia
         self.tempo_limite = tempo_limite
 
-    # Propriedade: local
     @property
     def local(self):
         return self.__local
@@ -222,7 +181,6 @@ class MissaoExploracao(Missao):
             raise ValueError("O local deve ser uma string")
         self.__local = local.strip().title()
 
-    # Propriedade: distancia
     @property
     def valor_objetivo(self):
         return self.__distancia
@@ -235,7 +193,6 @@ class MissaoExploracao(Missao):
             raise ValueError("A distância não pode ser negativa")
         self.__distancia = distancia
 
-    # Propriedade: tempo_limite
     @property
     def tempo_limite(self):
         return self.__tempo_limite
