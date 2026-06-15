@@ -18,7 +18,7 @@ struct Lista
     int tamanho;
     Lista() /// construtor
     {
-        //cout << "\n executando o construtor...\n";
+        //std::cout << "\n executando o construtor...\n";
         inicio = nullptr;
         fim = nullptr;
         tamanho =0;
@@ -29,16 +29,16 @@ void mostraL(Lista *lista)
 {
     No *n = lista->inicio;
 
-    cout << "L:[" << lista->tamanho << "]{";
-    while(n != NULL ) /// enquanto n não for NULL fica no laço
+    std::cout << "L:[" << lista->tamanho << "]{";
+    while(n != NULL ) /// enquanto n nï¿½o for NULL fica no laï¿½o
     {
-        cout << n->dado;
+        std::cout << n->dado;
         n = n->prox;
 
         if(n != NULL)
-            cout << ", ";
+            std::cout << ", ";
     }
-    cout << "}\n";
+    std::cout << "}\n";
 }
 
 void destroiL(Lista *lista)
@@ -64,7 +64,7 @@ bool vaziaL(Lista *lista)
         return false;
 }
 
-///insere no início da lista
+///insere no inï¿½cio da lista
 bool insereInicioL(Lista *lista, int valor)
 {
 
@@ -112,32 +112,32 @@ bool removeL(Lista *lista, int valor)
 {
     No *anterior = nullptr;
     No *atual = lista->inicio;
-    ///fica no laço enquanto tiver elementos na lista
-    /// e não encontrar o valor procurado
+    ///fica no laï¿½o enquanto tiver elementos na lista
+    /// e nï¿½o encontrar o valor procurado
     while(atual && atual->dado != valor)
     {
         anterior = atual;
         atual = atual->prox;
     }
-    /// pode sair do laço sem encontrar o valor (atual==NULL)
-    /// se encontrar >>> atual tem o endereço do elemento para excluir
+    /// pode sair do laï¿½o sem encontrar o valor (atual==NULL)
+    /// se encontrar >>> atual tem o endereï¿½o do elemento para excluir
     /// NULL == false    >>> !false == true
-    if(!atual) /// se atual é NULL >> não encontrou
+    if(!atual) /// se atual ï¿½ NULL >> nï¿½o encontrou
         return false;
-    if (!anterior) /// se anterior é igual a NULL
+    if (!anterior) /// se anterior ï¿½ igual a NULL
     {
-        /// o elemento a ser excluído está no início da lista
+        /// o elemento a ser excluï¿½do estï¿½ no inï¿½cio da lista
         lista->inicio = atual->prox;
         if (!lista->inicio) ///lista ficou vazia ?
             lista->fim = lista->inicio;
     }
-    else   /// elemento está no meio ou no fim
+    else   /// elemento estï¿½ no meio ou no fim
     {
         anterior->prox = atual->prox;
-        if (!atual->prox)/// se for retirado último da lista
+        if (!atual->prox)/// se for retirado ï¿½ltimo da lista
             lista->fim = anterior;
     }
-    /// libera a memória do elemento
+    /// libera a memï¿½ria do elemento
     lista->tamanho--;
 
     delete(atual);
