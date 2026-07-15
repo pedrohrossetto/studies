@@ -54,3 +54,13 @@ match acao:
         print(f"Atacando o inimigo com: {arma}")
     case _:
         print("Ação inválida.")
+
+2<3 or 3<2
+1 and 2 or 0
+1 and (2 or 0)
+(1 and 2) and (1 or 0)
+(1 and 2) or (1 or 0)
+0 or [] # retorna o ultimo se for falso, # Primeiro se verdadeiro
+1 or 2
+0 and [] # retorna o primeiro se for falso, ultimo se verdadeiro
+1 and 2
