@@ -1,0 +1,3 @@
+[build]
+# Impede a criação automática de arquivos de resolução quando usando projetos simples
+rustflags = ["-A", "warnings"]
