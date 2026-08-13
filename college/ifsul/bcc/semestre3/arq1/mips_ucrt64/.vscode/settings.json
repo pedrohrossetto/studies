@@ -1,0 +1,5 @@
+{
+    "code-runner.executorMapByFileExtension": {
+        ".asm": "cd $dir && nasm $fileName -f elf64 -g -F dwarf -o $fileNameWithoutExt.o && gcc $fileNameWithoutExt.o -o $fileNameWithoutExt.exe -lmsvcrt && clear && .\\$fileNameWithoutExt.exe"
+    }
+}

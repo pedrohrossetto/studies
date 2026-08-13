@@ -1,0 +1,64 @@
+BCC - AC1 - AT01 – Atividade – Orientações Gerais do Desenvolvimento
+
+Orientações gerais para o desenvolvimento da atividade de programação MIPS Assembly.
+
+1.       Objetivo
+
+Implementar programas em linguagem MIPS Assembly utilizando exclusivamente os conceitos, técnicas e instruções estudados em aula.
+
+A atividade tem por objetivo consolidar os conhecimentos relacionados à organização da memória, utilização de registradores, acesso à memória principal, operações aritméticas, estruturas condicionais e laços de repetição, considerando processadores MIPS.
+
+2.       Organização
+
+O trabalho deve ser realizado em duplas.
+
+Cada grupo deverá implementar 5 (cinco) programas independentes, sendo duas questões fáceis, duas médias e uma media/difícil:
+
+Cada grupo receberá informações personalizada dos enunciados para o desenvolvimento das questões.
+
+3.       Entrega
+
+A entrega deverá ser realizada por meio de um único arquivo compactado (.zip), contendo os programas Assembly MIPS.
+
+O nome do arquivo ZIP deve adotar o seguinte padrão de nome:
+
+BCC-AC1-AT01-GrupoXX.zip
+
+onde XX representa os dois dígitos do número atribuído ao grupo.
+
+Exemplo: BCC-AC1-Grupo01.zip
+
+Dentro do arquivo ZIP deverão estar presentes os 5 arquivos-fonte Assembly MIPS, devendo adotar o seguinte padrão de nome:
+
+AT01-gXXq1.asm, ... AT01-gXXq5.asm
+
+onde XX representa os dois dígitos do número atribuído ao grupo.
+
+Exemplo para o Grupo 01:
+
+AT01-g01q1.asm, AT01-g01q2.asm, AT01-g01q3.asm, AT01-g01q4.asm, AT01-g01q5.asm
+
+4.       Uso de Inteligência Artificial
+
+Os programas deverão refletir estritamente as técnicas, instruções e métodos apresentados na disciplina.
+
+Soluções que utilizem construções, instruções, pseudo-instruções, estilos de programação ou recursos dissonantes do conteúdo efetivamente ministrado serão consideradas incompatíveis com os objetivos da atividade, recebendo nota zero.
+
+O professor poderá solicitar explicações orais sobre a implementação, funcionamento e decisões adotadas na solução entregue.
+
+A incapacidade de explicar adequadamente o conteúdo submetido será considerada evidência de incompatibilidade entre a autoria declarada e a solução apresentada, também levando à atribuição da nota zero.
+
+5.       Avaliação
+
+Cada questão será avaliada individualmente, sendo pontuada da seguinte forma:
+
+1,0 ponto: solução correta e funcional.
+0,5 ponto: lógica correta com pequenos erros de implementação.
+0,0 ponto: lógica incorreta e/ou solução não funcional.
+6.       Observações
+
+·         Leia atentamente todas as orientações antes de realizar a atividade.
+Mantenha a nomenclatura dos arquivos conforme especificado.
+Utilize exclusivamente os recursos definidos para a atividade.
+Em caso de dúvidas sobre a atividade ou sobre a utilização do simulador MARS, consulte inicialmente os materiais disponibilizados na disciplina e, persistindo a dúvida, procure o professor.
+Os programas serão testados no simulador MARS quanto sua funcionalidade e resultados, bem como analisados quanto à adequação ao conteúdo ministrado e atendimento dos requisitos definidos para a atividade.

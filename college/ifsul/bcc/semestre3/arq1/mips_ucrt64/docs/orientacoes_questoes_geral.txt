@@ -1,0 +1,78 @@
+BCC - AC1 - AT01 - Programação MIPS Assembly
+
+Orientações gerais sobre o desenvolvimento da Atividade 1: programação MIPS Assembly.
+
+Objetivo
+
+Esta atividade visa consolidar os conceitos estudados na disciplina através da programação de sistemas baseados em processadores MIPS, incluindo:
+
+organização da memória;
+utilização de registradores;
+representação de inteiros em complemento de 2;
+acesso à memória tanto por bytes como palavras (words);
+utilização de caracteres baseados na tabela ASCII;
+operações sobre memória principal: leitura e escrita de dados via load e store;
+ implementação de expressões aritméticas;
+implementação de estruturas condicionais (if);
+implementação de laços de repetição (while, do-while);
+compreensão da organização do programa em memória principal: seções .data e .text.
+estas seções possuem os seguintes endereços inicias:
+          o    .data (dados)        : 0x1001 0000
+          o    .text (Instruções)  : 0x0040 0000
+
+Os programas deverão considerar esta organização ao manipular endereços e variáveis.
+
+Os programas devem ser desenvolvidos e testados utilizando o simulador MARS (veja link no Moodle:  página da disciplina).
+
+A avaliação irá considerar a correta aplicação dos conceitos de Arquitetura de Computadores estudados em aula e não a utilização de recursos avançados ou extraclasse da linguagem Assembly MIPS.
+
+Os programas devem usar exclusivamente as seguintes diretivas na seção .data (dados) para armazenamento estático de dados: (esta seção já está presente no arquivo templete para programação fornecido)
+
+.word      à representa um inteiro (int 32 bits)
+.byte       à representa uma caractere (char 8 bits)
+.asciiz      à representa uma string em C (vetor de char terminado em \0)
+.space     à representa uma reserva de espaço em byes para colocar dados posteriores
+Para atribuir valores inteiros (constantes) aos registrados use as duas de instruções abaixo.
+
+Por exemplo, para carregar o valor 0x1001 0004 (32 bits) no registrador $s0 (R16), use:
+   lui $s0, 0x1001      # carrega os 16 bits superiores (31-16) em R16
+   ori $s0, $s0, 0x0004 # carrega os 16 bits inferiores (15-0) em R16
+
+estas 2 instruções armazenado o valor 0x1001000416 no registrador $s0
+
+Não utilize qualquer pseudo-instrução, como: li, la, etc.
+
+Os programas deverão utilizar exclusivamente os seguintes registradores:
+
+$t0-$t9
+$s0-$s7
+$zero
+$a0-$a1 (usados para syscalls)
+$v0         (usados para syscalls)
+ Syscall: mecanismo utilizado para interagir (solicitar) serviços do sistema operacional.
+
+Lista das syscalls a serem usadas: (exclusivamente)
+
+print_int                 valor em $v0: 1                    # mostra um valor inteiro (int 32 bits)
+print_string           valor em $v0: 4                    # mostra uma string C (char terminado em \0)
+read_int                  valor em $v0: 5                    # lê valor inteiro (int 32 bits)
+read_string            valor em $v0: 8                    # lê uma string C (char terminado em \0)
+Dúvidas sobre a utilização do simulador MARS para programação em MIPS Assembly e instruções:
+
+inicialmente pesquisadas na documentação do MARS e nos materiais disponibilizados na disciplina
+persistindo a dúvida, procure o professor para tirar suas dívidas.
+Lista de instruções MISP Assembly a serem utilizadas no desenvolvimento da lógica principal do programa:
+
+Operações lógicas e aritméticas
+o    add, addi, sub, and, or, xor, sll, srl
+Comparações
+slt, slti
+Acesso à Memória
+o    lw, sw, lb, sb
+Controle de fluxo
+o    beq, bne, j
+Instruções não listadas nesta lista não deverão ser utilizadas, salvo orientação explícita do professor.
+
+Lista de instruções não permitias no desenvolvimento das soluções:
+
+la, li, move, blt, bgt, ble, bge, jal, jr

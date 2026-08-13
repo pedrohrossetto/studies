@@ -1,0 +1,37 @@
+Tarefa 1: Questão 1 – Expressão R = (A + B) - C
+Resumo: Calcular uma expressão matemática básica com variáveis na memória.
+
+1. Carregue o endereço base de .data usando lui e ori.
+2. Acesse A, B e C utilizando lw com os deslocamentos (offsets) corretos (ex: 0, 4, 8).
+3. Some A e B usando add, e subtraia C usando sub.
+4. Guarde no endereço de R com sw.
+5. Imprima o resultado transferindo para $v0 o valor 1 e invocando syscall.
+
+Tarefa 2: Questão 2 – Maior de dois Números
+Resumo: Comparar duas variáveis e salvar a maior em MAIOR.
+
+
+Carregue as variáveis da memória com lw.
+Utilize a instrução slt para verificar se A < B. O registrador destino receberá 1 se verdadeiro, ou 0 se falso.
+Use beq ou bne verificando o resultado do slt para saltar para o bloco que salva B ou o bloco que salva A.
+Armazene a variável correta usando sw e imprima o resultado.
+
+Tarefa 3: Questão 3 – Seleção Condicional Composta
+Resumo: Implementar um If/Else If/Else dependendo dos valores de A e B.
+
+
+Para testar A > B, utilize slt invertendo a ordem dos registradores (se B < A, então A > B). Se verdadeiro, use sub para A - B.
+Se não for, use beq para testar se A = B. Se verdadeiro, carregue 0 em R.
+Se ambas falharem, aplique add para A + B.
+
+Essencial: utilize a instrução j ao final de cada bloco condicional para saltar o restante das condições e ir direto para o armazenamento final com sw.
+
+Tarefa 4: Questão 4 – Soma de Intervalo
+Resumo: Somar todos os inteiros em um intervalo fechado [INICIO, FIM] utilizando laço de repetição.
+
+Defina um registrador como acumulador (ex: $t2 inicializado com zero via $zero e add).
+Defina um registrador como contador inicializado com o valor de INICIO carregado da memória.
+No início do laço, use slt para checar se FIM < contador. Se sim, saia do laço usando bne.
+Dentro do laço, some o contador ao acumulador com add.
+Incremente o contador em 1 utilizando addi.
+Use j para voltar ao topo do laço. Ao final, salve em SOMA com sw.

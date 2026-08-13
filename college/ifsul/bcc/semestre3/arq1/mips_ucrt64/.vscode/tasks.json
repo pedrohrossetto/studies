@@ -1,0 +1,49 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Assembly (MSYS2)",
+            "type": "shell",
+            "command": "nasm \"${file}\" -f elf64 -g -F dwarf -o \"${fileDirname}\\${fileBasenameNoExtension}.o\" && gcc \"${fileDirname}\\${fileBasenameNoExtension}.o\" -o \"${fileDirname}\\${fileBasenameNoExtension}.exe\" -lmsvcrt",
+            "options": {
+                "shell": {
+                    "executable": "cmd.exe",
+                    "args": [
+                        "/c"
+                    ]
+                }
+            },
+            "group": "build",
+            "presentation": {
+                "reveal": "silent",
+                "clear": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Build & Run Assembly (MSYS2)",
+            "type": "shell",
+            "command": "nasm \"${file}\" -f elf64 -g -F dwarf -o \"${fileDirname}\\${fileBasenameNoExtension}.o\" && gcc \"${fileDirname}\\${fileBasenameNoExtension}.o\" -o \"${fileDirname}\\${fileBasenameNoExtension}.exe\" -lmsvcrt && \"${fileDirname}\\${fileBasenameNoExtension}.exe\"",
+            "options": {
+                "shell": {
+                    "executable": "cmd.exe",
+                    "args": [
+                        "/c"
+                    ]
+                }
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared",
+                "clear": true
+            },
+            "problemMatcher": []
+        }
+    ]
+}
