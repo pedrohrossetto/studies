@@ -1,0 +1,14 @@
+# Ignora todas as pastas de compilação do Rust
+**/target/
+
+# Ignora executáveis compilados de C++
+*.out
+*.exe
+main_bin
+
+# Ignora o arquivo de lock incompatível
+Cargo.lockCargo.lock
+
+Cargo.lock
+**/target/
+*.out
