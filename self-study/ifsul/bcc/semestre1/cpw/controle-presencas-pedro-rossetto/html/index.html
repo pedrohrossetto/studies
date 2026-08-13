@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Controle de Presenças Evento X</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/estilo.css" />
+    <link rel="icon" type="image/png" href="..\icon_sample.jpeg" />
+  </head>
+  <body>
+    <h1>Festa Junina</h1>
+    <h5>Controle de Presenças</h5>
+    <div class="row" id="div_formularios">
+    <div class="col" id="div_inscricao">
+      <h2>Faça sua Inscrição</h2>
+      <form id="form_inscricao">
+        <p>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Nome Completo"
+            required
+          />
+        </p>
+        <p>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="E-mail"
+            required
+          />
+        </p>
+        <button class="btn btn-primary" type="submit">Increver-se no Evento</button>
+      </form>
+      <br>
+    </div>
+
+    <div class="col" id="div_presenca">
+      <h2>Confirmar Presença</h2>
+      <form id="form_presenca">
+        <p>
+          <input
+            type="email"
+            id="email_presenca"
+            name="email"
+            placeholder="E-mail Inscrito"
+            required
+          />
+        </p>
+        <button class="btn btn-secondary" type="submit">Registrar Presença</button>
+      </form>
+      <br>
+    </div>
+    </div>
+    </div>
+
+    <div class="row" id="div_listas">
+    <div class="col" id="div_inscritos">
+    <h3>Inscritos/Ausentes:</h3>
+      <ol id="lista_inscritos">
+        <!-- Lista de inscritos será preenchida aqui -->
+      </ol>
+    </div>
+    <div class="col" id="div_presentes">  
+      <h3>Presentes:</h3>
+      <ol id="lista_presentes">
+        <!-- Lista de presenças será preenchida aqui -->
+      </ol>
+    </div>
+    </div>
+
+    <script src="../js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+    <footer>
+      <p>
+        Instituto Federal Sul-rio-grandense - Campus Passo Fundo | Disciplina:
+        Criação de Páginas Web
+      </p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+O pacote de código=9 foi enfileirado na Fila 1
+O pacote de código=7 foi enfileirado na Fila 1
+O pacote de código=5 foi enfileirado na Fila 1
+O pacote de código=8 foi enfileirado na Fila 2
+O pacote de código=6 foi enfileirado na Fila 2
+O pacote de código=4 foi enfileirado na Fila 2
+O pacote de código=3 foi enfileirado na Fila 1
+O pacote de código=2 foi enfileirado na Fila 2
+O pacote de código=20 foi enfileirado na Fila 2
+Fila F1: {[cod=9, peso=50.5], [cod=7, peso=150.3], [cod=5, peso=100], [cod=3, peso=22.88]}
+Fila F2: {[cod=8, peso=40.7], [cod=6, peso=250.2], [cod=4, peso=30.1], [cod=2, peso=11.11], [cod=20, peso=22.22]}
+O pacote de código=9 foi retirado da fila e empilhado!
+O pacote de código=7 foi retirado da fila e empilhado!
+O pacote de código=5 foi retirado da fila e empilhado!
+O pacote de código=8 foi retirado da fila e empilhado!
+O pacote de código=6 foi retirado da fila e empilhado!
+Fila F1: {[cod=3, peso=22.88]}
+Fila F2: {[cod=4, peso=30.1], [cod=2, peso=11.11], [cod=20, peso=22.22]}
+Os pacotes da pilha foram fracionados respeitando o peso máximo de 72!
+PILHA topo {[cod=6, peso=72], [cod=6, peso=72], [cod=6, peso=72], [cod=6, peso=34.2], [cod=8, peso=40.7], [cod=5, peso=72], [cod=5, peso=28], [cod=7, peso=72], [cod=7, peso=72], [cod=7, peso=6.3], [cod=9, peso=50.5]} base

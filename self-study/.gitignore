@@ -1,0 +1,14 @@
+ifsul/bcc/semestre1/ementas
+ifsul/bcc/semestre1/matematica_discreta
+ifsul/bcc/semestre1/historia_cc
+*.json
+node_modules
+*.vscode
+vscode
+__pycache__
+output
+*.exe
+*.out
+*.class
+*.ini
+*.zip
