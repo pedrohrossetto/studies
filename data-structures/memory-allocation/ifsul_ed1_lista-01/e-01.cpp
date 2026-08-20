@@ -1,10 +1,5 @@
 #include <iostream>
-
-using namespace std;
-
-main (){
-
-
-
-    
+int main () {
+    std::cout << "Hello Word!" << std::endl;
+    return 0; // Boa prática para indicar sucesso
 }
