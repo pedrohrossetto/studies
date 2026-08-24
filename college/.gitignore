@@ -12,3 +12,4 @@ output
 *.class
 *.ini
 *.zip
+.venv/

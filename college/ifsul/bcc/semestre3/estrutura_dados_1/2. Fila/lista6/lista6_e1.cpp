@@ -147,4 +147,3 @@ int main(void)
     cout << "\n\nPrograma finalizado.\n\n";
     return EXIT_SUCCESS;
 }
-

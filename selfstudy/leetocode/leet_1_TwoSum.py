@@ -1,6 +1,6 @@
 class Solution:
     def twoSum(self, nums:list[int], target: int) -> list[int]:
-        # Complexidade O(n)
+        # Complexidade O(n) ?
         i:int = 0
         a:int = 1
         while i < len(nums):
