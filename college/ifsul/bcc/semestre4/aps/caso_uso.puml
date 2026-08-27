@@ -1,0 +1,39 @@
+@startuml
+left to right direction
+
+
+' --- ATORES ---
+actor "Cliente" as cliente
+actor "Funcionário" as admin
+
+' --- FRONTEIRA DO SISTEMA ---
+rectangle "Sistema Bancário" {
+
+' --- CASOS DE USO ---
+usecase "Abrir Conta" as new_conta
+usecase "Encerrar Conta" as end_conta
+usecase "Depositar" as deposito
+usecase "Sacar" as saque
+usecase "Gerar Extrato" as extrato
+usecase "Acessar Saldo" as saldo
+usecase "Atualizar Dados da Conta" as atualizar_conta
+
+}
+
+' --- RELACIONAMENTOS ---
+' Associações principais (Atores interagindo com os casos de uso)
+admin -> new_conta
+admin -> end_conta
+admin -> atualizar_conta
+cliente -> deposito
+cliente -> saque
+cliente -> extrato
+cliente -> saldo
+
+' Include (Inclusão - obrigatório)
+'end_conta ..> new_conta : <<include>>
+
+'Extend (Extensão - opcional)
+
+
+@enduml
