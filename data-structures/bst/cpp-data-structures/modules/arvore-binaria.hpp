@@ -21,6 +21,22 @@ static bool is_empty(BinTreeNode *tree){
     return tree == nullptr;
 }
 
+// Busca pelo menor valor da árvore (o valor mais à esquerda)
+static BinTreeNode* tree_min(BinTreeNode *tree){
+    while (tree->left_child != nullptr) {
+        tree = tree->left_child;
+    }
+    return tree;
+}
+
+// Busca pelo maior valor da árvore (o valor mais à direita)
+static BinTreeNode* tree_max(BinTreeNode *tree){
+    while (tree->right_child != nullptr) {
+        tree = tree->right_child;
+    }
+    return tree;
+}
+
 // to-do algoritmo de definição de altura da árvore
 static int tree_height(BinTreeNode* tree){
     return 0;
@@ -45,6 +61,7 @@ static bool node_search(BinTreeNode *tree, int val)
      * Recebe como argumento a raiz da árvore e o valor do nó que se deseja remover
      */
 
+// busca de forma iterativa (sem recursão) por um valor específico presente na árvore e o retorna
 static BinTreeNode* node_search_iteractive(BinTreeNode* tree,int val){
     while (tree != nullptr && val != tree->value) {
         if (val < tree->value) {
