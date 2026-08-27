@@ -56,7 +56,14 @@ static int tree_height(BinTreeNode* tree){
 }
 
 // to-do algoritmo de limpeza completa da árvore
-static void tree_delete(BinTreeNode* tree){}
+static void tree_clear(BinTreeNode* &tree){
+    if (!is_empty(tree)) { //
+        tree_clear(tree->left_child);
+        tree_clear(tree->right_child);
+        delete tree; // destruindo os dados
+        tree = nullptr; // desreferenciando o ponteiro, agora para nulo
+    }
+}
 
 
 
