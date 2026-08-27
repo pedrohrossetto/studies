@@ -2,6 +2,7 @@
 #define _HPP_ARVORE_BINARIA
 #include <iostream>
 
+// Struct básica para manipulação de Árvores Binárias
 struct BinTreeNode
 {
     int value;
@@ -16,62 +17,113 @@ static BinTreeNode* create_node(int val) {
     return new BinTreeNode(val);
 }
 
-static bool is_empty(BinTreeNode *t){
-    return t == nullptr;
+static bool is_empty(BinTreeNode *tree){
+    return tree == nullptr;
 }
 
-static bool tree_search(BinTreeNode *t, int val)
+// to-do algoritmo de definição de altura da árvore
+static int tree_height(BinTreeNode* tree){
+    return 0;
+}
+
+// to-do algoritmo de limpeza completa da árvore
+static void tree_delete(BinTreeNode* tree){}
+
+// to-do algoritmo de busca de altura de nó em arvore
+static int node_height(BinTreeNode* tree){
+    return 0;}
+
+// busca por um valor específico presenta na árvore
+static bool node_search(BinTreeNode *tree, int val)
     {
-        if(is_empty(t))
+        if(is_empty(tree))
             return 0;
-        return t->value == val || tree_search(t->left_child, val) || tree_search(t->right_child, val);
+        return tree->value == val || node_search(tree->left_child, val) || node_search(tree->right_child, val);
     }
 
-static void tree_insert(BinTreeNode* &t, int val){
-    if(is_empty(t)){
-        t = create_node(val);
+    /*
+     * Recebe como argumento a raiz da árvore e o valor do nó que se deseja remover
+     */
+
+// Remoção de um node da árvore e sequente manipulação dos ramos
+static void node_delete(BinTreeNode* &tree, int val)
+    {
+
+        if (tree == nullptr) return; // Condição de parada
+
+        else if (val < tree->value) {
+            node_delete(tree->left_child,val);
+        }
+        else if (val > tree->value) {
+            node_delete(tree->right_child,val);
+        }
+        // o caso que resta é que val == tree->value
+        else {
+            // testa se o node tem apenas um filho
+            if (tree->left_child == nullptr || tree->right_child == nullptr) {
+                BinTreeNode *aux = tree; // salvando o endereço do nó a ser excluído
+                tree = (tree->left_child != nullptr) ? tree->left_child : tree->right_child; // t->l != vazio? se sim, t == t->l, se não, t == t->r
+                delete aux;
+            }
+            else { // caso em que há dois filhos
+                BinTreeNode* sucessor = tree->right_child; // o ponteiro sucessor aponta para o endereço de t->r
+                while (sucessor->left_child != nullptr) {
+                    sucessor = sucessor->left_child; // busca o menor valor (ultimo à esquerda) que é o sucessor
+                }
+                tree->value = sucessor->value; //valor do node a ser removido passa a ser o do sucessor, mantendo a estrutura
+                node_delete(tree->right_child, tree->value); // recursão para percorrer o ramo à direita
+            }
+        }
+    }
+
+// Insere seguindo as regras um node na árvore
+static void node_insert(BinTreeNode* &tree, int val){
+    if(is_empty(tree)){
+        tree = create_node(val);
         // Caso Base
         // Insere apenas  quando chega ao final da estrutura
         // um left_child/right_child de tipo BinTreeNode nullptr é encontrado
     }
     else {
-        if(val < t->value)
-            tree_insert(t->left_child,val); // passo recursivo 1
+        if(val < tree->value)
+            node_insert(tree->left_child,val); // passo recursivo 1
         else
-            tree_insert(t->right_child,val); // passo recursivo 2
+            node_insert(tree->right_child,val); // passo recursivo 2
     }
 }
 
-static void inorder_walk(BinTreeNode* t){
-    if (!is_empty(t)) {
-        inorder_walk(t->left_child);
-        std::cout << t->value << " ";
-        inorder_walk(t->right_child);
+// Lógica de ordenação crescente
+static void tree_walk_inorder(BinTreeNode* tree){
+    if (!is_empty(tree)) {
+        tree_walk_inorder(tree->left_child);
+        std::cout << tree->value << " ";
+        tree_walk_inorder(tree->right_child);
     }
 }
 
-static void preorder_walk(BinTreeNode* t) {
+// lógica de <raiz<left><right>>
+static void tree_walk_preorder(BinTreeNode* tree) {
     std::cout << "<";
-    if (!is_empty(t)) {
-        std::cout << t->value << " ";
-        preorder_walk(t->left_child);
+    if (!is_empty(tree)) {
+        std::cout << tree->value << " ";
+        tree_walk_preorder(tree->left_child);
         std::cout << " ";
-        preorder_walk(t->right_child);
+        tree_walk_preorder(tree->right_child);
     }
     std::cout << ">";
 }
 
-// Pos ordem é geralmente utilizado para exclusão e liberação de memória
-// Complexidade: O(n) para tempo e O(h) para espaço de pilha
-// (n é o número de nós e h é a altura da árvore).
-
-static void postorder_walk(BinTreeNode* t){
+// lógica de <<left><right>raiz>
+static void tree_walk_postorder(BinTreeNode* tree){
+    // Pos ordem é geralmente utilizado para exclusão e liberação de memória
+    // Complexidade: O(n) para tempo e O(h) para espaço de pilha
+    // (n é o número de nós e h é a altura da árvore).
     std::cout << "<";
-    if(!is_empty(t)){
-        postorder_walk(t->left_child);
+    if(!is_empty(tree)){
+        tree_walk_postorder(tree->left_child);
         std::cout << " ";
-        postorder_walk(t->right_child);
-        std::cout << t->value << " ";
+        tree_walk_postorder(tree->right_child);
+        std::cout << tree->value << " ";
     }
     std::cout << ">";
 
