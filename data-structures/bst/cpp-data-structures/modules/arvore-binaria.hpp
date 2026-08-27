@@ -17,16 +17,22 @@ static BinTreeNode* create_node(int val) {
     return new BinTreeNode(val);
 }
 
-static bool is_empty(BinTreeNode *tree){
+static bool is_empty(BinTreeNode* tree){
     return tree == nullptr;
 }
 
 // Busca pelo menor valor da árvore (o valor mais à esquerda)
-static BinTreeNode* tree_min(BinTreeNode *tree){
+static BinTreeNode* tree_min(BinTreeNode* tree){
     while (tree->left_child != nullptr) {
         tree = tree->left_child;
     }
     return tree;
+}
+
+static BinTreeNode* node_sucessor(BinTreeNode* tree){
+    if (tree->right_child != nullptr) {
+        return tree_min(tree->right_child);
+    }
 }
 
 // Busca pelo maior valor da árvore (o valor mais à direita)
@@ -37,17 +43,22 @@ static BinTreeNode* tree_max(BinTreeNode *tree){
     return tree;
 }
 
-// to-do algoritmo de definição de altura da árvore
+// Algoritmo de definição de altura da árvore
+// Complexidade de tempo O(n) e espaço O(h) n = nós da árvore e h = altura da árvore
+// assume padrão nível da raiz = 0
 static int tree_height(BinTreeNode* tree){
-    return 0;
+    if (tree == nullptr) {
+        return -1;
+    }
+    else {
+        return 1 + std::max(tree_height(tree->left_child),tree_height(tree->right_child));
+    }
 }
 
 // to-do algoritmo de limpeza completa da árvore
 static void tree_delete(BinTreeNode* tree){}
 
-// to-do algoritmo de busca de altura de nó em arvore
-static int node_height(BinTreeNode* tree){
-    return 0;}
+
 
 // busca por um valor específico presenta na árvore
 static bool node_search(BinTreeNode *tree, int val)
@@ -106,7 +117,7 @@ static void node_delete(BinTreeNode* &tree, int val)
     }
 
 // Insere seguindo as regras um node na árvore
-static void node_insert(BinTreeNode* &tree, int val){
+static void tree_insert(BinTreeNode* &tree, int val){
     if(is_empty(tree)){
         tree = create_node(val);
         // Caso Base
@@ -115,9 +126,9 @@ static void node_insert(BinTreeNode* &tree, int val){
     }
     else {
         if(val < tree->value)
-            node_insert(tree->left_child,val); // passo recursivo 1
+            tree_insert(tree->left_child,val); // passo recursivo 1
         else
-            node_insert(tree->right_child,val); // passo recursivo 2
+            tree_insert(tree->right_child,val); // passo recursivo 2
     }
 }
 
