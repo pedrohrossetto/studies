@@ -8,10 +8,9 @@ using namespace std;
 int main(){
     // Chave para funcionar
     // Ponteiro que aponta para o endereço alocado de uma BinTreeNode vazia
-    // Sempre que estiver sendo utilizado o ponteiro root em uma função 
+    // Sempre que estiver sendo utilizado o ponteiro root em uma função
     // está sendo passado na verdade o endereço inicial da estrutura BinTreeNode
     BinTreeNode* root = nullptr;
-    root->
 
     int valores[10] = {6,8,4,5,2,3,1,9,7,6};
     for (int v : valores) {
