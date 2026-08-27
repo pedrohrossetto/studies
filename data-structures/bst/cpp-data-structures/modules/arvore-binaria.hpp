@@ -45,6 +45,18 @@ static bool node_search(BinTreeNode *tree, int val)
      * Recebe como argumento a raiz da árvore e o valor do nó que se deseja remover
      */
 
+static BinTreeNode* node_search_iteractive(BinTreeNode* tree,int val){
+    while (tree != nullptr && val != tree->value) {
+        if (val < tree->value) {
+            tree = tree->left_child;
+        }
+        else {
+            tree = tree->right_child;
+        }
+    }
+    return tree;
+}
+
 // Remoção de um node da árvore e sequente manipulação dos ramos
 static void node_delete(BinTreeNode* &tree, int val)
     {
