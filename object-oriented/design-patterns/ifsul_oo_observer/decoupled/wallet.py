@@ -1,0 +1,16 @@
+class Wallet(object):
+    def __init__(self):
+        self.amount = 0
+    def increase_balance(self, amount):
+        self.amount += amount
+    def decrease_balance(self, amount):
+        self.amount -= amount
+
+    def complete_task(self,task):
+        self.increase_balance(5)
+
+    def update(self, observed):
+        self.increase_balance(5)
+
+    def __str__(self):
+        return str(self.amount)
