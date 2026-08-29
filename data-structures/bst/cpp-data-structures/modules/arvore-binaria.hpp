@@ -65,8 +65,16 @@ static int tree_height(BinTreeNode* tree){
     }
 }
 
+// Conta nós. Base para a probabilidade 1/(n+1) da inserção randomizada.
+static int tree_size(BinTreeNode* tree) {
+    if (is_empty(tree)) {
+        return 0;
+    }
+    return 1 + tree_size(tree->left_child) + tree_size(tree->right_child);
+}
+
 static int tree_balance(BinTreeNode* tree){
-    return tree_height(tree->left_child) - tree_height(tree->right_child)
+    return tree_height(tree->left_child) - tree_height(tree->right_child);
 }
 
 // to-do algoritmo de limpeza completa da árvore
