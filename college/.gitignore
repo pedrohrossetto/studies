@@ -7,9 +7,32 @@ node_modules
 vscode
 __pycache__
 output
-*.exe
-*.out
-*.class
 *.ini
 *.zip
 .venv/
+
+# Objetos, bibliotecas e pré-compilados
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dll
+*.dylib
+*.gch
+*.pch
+*.d
+*.class
+
+# Executáveis (Windows, -o arquivo.out, a.out)
+*.exe
+*.out
+*.app
+*.bin
+a.out
+
+# Binários Linux sem extensão em estrutura-dados (g++ -o nome)
+ifsul/bcc/semestre4/estrutura-dados/**/*
+!ifsul/bcc/semestre4/estrutura-dados/**/*/
+!ifsul/bcc/semestre4/estrutura-dados/**/*.*
+!ifsul/bcc/semestre4/estrutura-dados/**/.gitignore
