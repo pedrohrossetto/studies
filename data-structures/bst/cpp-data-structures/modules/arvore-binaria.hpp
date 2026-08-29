@@ -29,12 +29,6 @@ static BinTreeNode* tree_min(BinTreeNode* tree){
     return tree;
 }
 
-static BinTreeNode* node_sucessor(BinTreeNode* tree){
-    if (tree->right_child != nullptr) {
-        return tree_min(tree->right_child);
-    }
-}
-
 // Busca pelo maior valor da árvore (o valor mais à direita)
 static BinTreeNode* tree_max(BinTreeNode *tree){
     while (tree->right_child != nullptr) {
@@ -42,6 +36,22 @@ static BinTreeNode* tree_max(BinTreeNode *tree){
     }
     return tree;
 }
+
+// Busca pelo menor valor na sub-árvore à direita
+static BinTreeNode* node_sucessor(BinTreeNode* tree){
+    if (tree->right_child != nullptr) {
+        return tree_min(tree->right_child);
+    }
+}
+
+// Busca pelo Maior valor na sub-árvore à esquerda
+static BinTreeNode* node_predecessor(BinTreeNode* tree){
+    if (tree->left_child != nullptr) {
+        return tree_max(tree->left_child);
+    }
+}
+
+
 
 // Algoritmo de definição de altura da árvore
 // Complexidade de tempo O(n) e espaço O(h) n = nós da árvore e h = altura da árvore
