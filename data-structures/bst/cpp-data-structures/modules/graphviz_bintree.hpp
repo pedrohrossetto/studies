@@ -2,24 +2,31 @@
 #include <fstream>
 #include <cstdlib> // Necessário para a função system()
 
-// Função recursiva para estruturar o arquivo DOT
+// ID Graphviz = endereço do nó (único). O valor só entra no label.
+// Usar t->value como ID funde chaves repetidas e inventa ciclos.
 static void generate_dot_recursive(BinTreeNode *t, std::ofstream &file) {
     if (t == nullptr) return;
 
+    file << "    \"" << static_cast<const void*>(t) << "\" [label=\"" << t->value << "\"];\n";
+
     if (t->left_child != nullptr) {
-        file << "    " << t->value << " -> " << t->left_child->value << ";\n";
+        file << "    \"" << static_cast<const void*>(t) << "\" -> \""
+             << static_cast<const void*>(t->left_child) << "\";\n";
         generate_dot_recursive(t->left_child, file);
     } else {
-        file << "    null_l_" << t->value << " [shape=point];\n";
-        file << "    " << t->value << " -> null_l_" << t->value << ";\n";
+        file << "    \"null_l_" << static_cast<const void*>(t) << "\" [shape=point];\n";
+        file << "    \"" << static_cast<const void*>(t) << "\" -> \"null_l_"
+             << static_cast<const void*>(t) << "\";\n";
     }
 
     if (t->right_child != nullptr) {
-        file << "    " << t->value << " -> " << t->right_child->value << ";\n";
+        file << "    \"" << static_cast<const void*>(t) << "\" -> \""
+             << static_cast<const void*>(t->right_child) << "\";\n";
         generate_dot_recursive(t->right_child, file);
     } else {
-        file << "    null_r_" << t->value << " [shape=point];\n";
-        file << "    " << t->value << " -> null_r_" << t->value << ";\n";
+        file << "    \"null_r_" << static_cast<const void*>(t) << "\" [shape=point];\n";
+        file << "    \"" << static_cast<const void*>(t) << "\" -> \"null_r_"
+             << static_cast<const void*>(t) << "\";\n";
     }
 }
 
