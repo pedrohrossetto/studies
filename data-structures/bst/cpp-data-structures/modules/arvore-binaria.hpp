@@ -45,6 +45,7 @@ static BinTreeNode* node_sucessor(BinTreeNode* tree){
     if (tree->right_child != nullptr) {
         return tree_min(tree->right_child);
     }
+    return nullptr;
 }
 
 // Busca pelo Maior valor na sub-árvore à esquerda
@@ -52,9 +53,8 @@ static BinTreeNode* node_predecessor(BinTreeNode* tree){
     if (tree->left_child != nullptr) {
         return tree_max(tree->left_child);
     }
+    return nullptr;
 }
-
-
 
 // Algoritmo de definição de altura da árvore
 // Complexidade de tempo O(n) e espaço O(h) n = nós da árvore e h = altura da árvore
@@ -115,6 +115,10 @@ static BinTreeNode* node_search_iteractive(BinTreeNode* tree,int val){
         }
     }
     return tree;
+}
+
+static int node_height_search(BinTreeNode* tree, int val){
+
 }
 
 // Remoção de um node da árvore e sequente manipulação dos ramos
@@ -212,14 +216,13 @@ static void tree_walk_postorder(BinTreeNode* tree){
 
 }
 
-static void tree_stats(const char* titulo, BinTreeNode* tree) {
-    std::cout << titulo
-              << "  nos=" << tree_size(tree)
-              << "  altura=" << tree_height(tree)
-              << "  balance=" << tree_balance(tree)
-              << "\n  in-ordem: ";
-    tree_walk_inorder(tree);
-    std::cout << "\n";
+static void tree_stats(BinTreeNode* tree) {
+    std::cout << "Nó atual: " << tree->value
+              <<  "\nL/R: "   << tree->left_child     <<   " / "   << tree->right_child
+              << "\nnos="     << tree_size(tree)
+              << "\naltura="  << tree_height(tree)
+              << "\nbalance=" << tree_balance(tree)   << "\n";
+
 }
 
 #endif

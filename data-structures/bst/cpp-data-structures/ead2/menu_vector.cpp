@@ -35,7 +35,7 @@ int main() {
         int qtd_val = lerInteiroValido("Quantidade de inserções: ");
         int lim_min = lerInteiroValido("Limite Menor: ");
         int lim_max = lerInteiroValido(("Limite Maior: "));
-        tree_insert_random(root, lim_min,lim_max);
+        tree_fill_random(root,qtd_val, lim_min,lim_max);
         std::cout << "Inserido.\n";
     }});
 
@@ -75,8 +75,33 @@ int main() {
         std::cout << "\n";
     }});
 
-    acoes.push_back({"Estatísticas", [&]() {
-        tree_stats("árvore atual", root);
+    acoes.push_back({"Predecessor do nó",[&](){
+        node_predecessor(root);
+    }});
+
+    acoes.push_back({"Sucessor do nó",[&](){
+        node_sucessor(root);
+    }});
+
+    acoes.push_back({"Maior Valor da Árvore",[&](){
+        tree_max(root);
+    }});
+
+    acoes.push_back({"Menor Valor da Árvore",[&](){
+        tree_min(root);
+    }});
+
+    acoes.push_back({"Altura da Árvore",[&](){
+        tree_height(root);
+    }});
+
+    acoes.push_back({"Tamanho da Árvore",[&](){
+        tree_size(root);
+    }});
+
+
+    acoes.push_back({"Estatísticas Compiladas", [&]() {
+        tree_stats(root);
     }});
 
     acoes.push_back({"Preencher n aleatórios [min, max]", [&]() {
