@@ -38,13 +38,6 @@ static void tree_insert_shuffled(BinTreeNode* &tree, int *arr, int n) {
     }
 }
 
-// n valores aleatórios no intervalo [min_val, max_val], inserção BST comum.
-static void tree_fill_random(BinTreeNode* &tree, int n, int min_val, int max_val) {
-    for (int i = 0; i < n; ++i) {
-        tree_insert(tree, gerarAleatorio(min_val, max_val));
-    }
-}
-
 // 1, 2, ..., n em ordem — pior caso clássico da BST (vira uma lista).
 static void tree_fill_sequential(BinTreeNode* &tree, int n) {
     for (int i = 1; i <= n; ++i) {

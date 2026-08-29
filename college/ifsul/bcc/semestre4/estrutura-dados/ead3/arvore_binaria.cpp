@@ -19,7 +19,7 @@ int main(){
 
     int menu_main;
     while (true) {
-        std::cout<< "Menu:\n0 - Sair\n1 - Inserir\n2 - Busca de Elementos\n3 - Opções de Exibição:\n";
+    std::cout<< "Menu:\n0 - Sair\n1 - Inserir\n2 - Busca de Elementos\n3 - Opções de Exibição:\n";
         std::cin >> menu_main;
         switch (menu_main) {
             case 0: //sair
@@ -73,6 +73,18 @@ int main(){
                         break;
                     case 4:
                         place_holder();
+                }
+            case 4: //sub-menu de funcionalidades
+                limpar_tela();
+                int menu_funcs;
+                std::cout<< "Menu:\n0 - Sair\n1 - Exibir Pré-ordem\n2 - Exibir in-ordem\n3 - Exibir Pós-ordem\n";
+                std::cin >> menu_exib;
+                switch (menu_exib){
+                    case 0:
+
+                    case 1:
+
+                    case 2:
                 }
 
         }

@@ -1,6 +1,9 @@
 #ifndef _HPP_ARVORE_BINARIA
 #define _HPP_ARVORE_BINARIA
 #include <iostream>
+#include "utils_plus.hpp"
+
+
 
 // Struct básica para manipulação de Árvores Binárias
 struct BinTreeNode
@@ -161,6 +164,17 @@ static void tree_insert(BinTreeNode* &tree, int val){
     }
 }
 
+// n valores aleatórios no intervalo [min_val, max_val], inserção BST comum.
+static void tree_fill_random(BinTreeNode* &tree, int n, int min_val, int max_val) {
+    for (int i = 0; i < n; ++i) {
+        tree_insert(tree, gerarAleatorio(min_val, max_val));
+    }
+}
+
+static void tree_insert_random(BinTreeNode* &tree, int min_val, int max_val) {
+        tree_insert(tree, gerarAleatorio(min_val, max_val));
+}
+
 // Lógica de ordenação crescente
 static void tree_walk_inorder(BinTreeNode* tree){
     if (!is_empty(tree)) {
@@ -196,6 +210,16 @@ static void tree_walk_postorder(BinTreeNode* tree){
     }
     std::cout << ">";
 
+}
+
+static void tree_stats(const char* titulo, BinTreeNode* tree) {
+    std::cout << titulo
+              << "  nos=" << tree_size(tree)
+              << "  altura=" << tree_height(tree)
+              << "  balance=" << tree_balance(tree)
+              << "\n  in-ordem: ";
+    tree_walk_inorder(tree);
+    std::cout << "\n";
 }
 
 #endif
