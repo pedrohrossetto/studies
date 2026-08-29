@@ -65,6 +65,10 @@ static int tree_height(BinTreeNode* tree){
     }
 }
 
+static int tree_balance(BinTreeNode* tree){
+    return tree_height(tree->left_child) - tree_height(tree->right_child)
+}
+
 // to-do algoritmo de limpeza completa da árvore
 static void tree_clear(BinTreeNode* &tree){
     if (!is_empty(tree)) { //
