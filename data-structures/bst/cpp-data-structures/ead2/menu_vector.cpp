@@ -76,44 +76,42 @@ int main() {
     }});
 
     acoes.push_back({"Predecessor do nó",[&](){
-        node_predecessor(root);
+        std::cout << node_predecessor(root);
     }});
 
     acoes.push_back({"Sucessor do nó",[&](){
-        node_sucessor(root);
+        std::cout << node_sucessor(root);
     }});
 
     acoes.push_back({"Maior Valor da Árvore",[&](){
-        tree_max(root);
+        std::cout << tree_max(root);
     }});
 
     acoes.push_back({"Menor Valor da Árvore",[&](){
-        tree_min(root);
+        std::cout << tree_min(root);
+    }});
+
+    acoes.push_back({"Soma dos elementos da Árvore",[&](){
+        std::cout << tree_sum(root);
+    }});
+
+    acoes.push_back({"Soma dos elementos da Árvore (condicional)",[&](){
+        int min = lerInteiroValido("Informe o limite minimo do intervalo de soma: ");
+        int max = lerInteiroValido("Informe o limite máximo do intervalo de soma: ");
+        std::cout << tree_sum_conditional(root,min,max);
     }});
 
     acoes.push_back({"Altura da Árvore",[&](){
-        tree_height(root);
+        std::cout << tree_height(root);
     }});
 
     acoes.push_back({"Tamanho da Árvore",[&](){
-        tree_size(root);
+        std::cout << tree_size(root);
     }});
 
 
     acoes.push_back({"Estatísticas Compiladas", [&]() {
         tree_stats(root);
-    }});
-
-    acoes.push_back({"Preencher n aleatórios [min, max]", [&]() {
-        int n = lerInteiroValido("n: ");
-        int min_val = lerInteiroValido("min: ");
-        int max_val = lerInteiroValido("max: ");
-        if (min_val > max_val) {
-            std::cout << "min maior que max.\n";
-            return;
-        }
-        tree_fill_random(root, n, min_val, max_val);
-        std::cout << "Preenchido.\n";
     }});
 
     acoes.push_back({"Limpar árvore", [&]() {
