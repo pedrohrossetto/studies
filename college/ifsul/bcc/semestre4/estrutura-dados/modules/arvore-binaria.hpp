@@ -1,6 +1,7 @@
 #ifndef _HPP_ARVORE_BINARIA
 #define _HPP_ARVORE_BINARIA
 #include <iostream>
+#include <locale>
 #include "utils_plus.hpp"
 
 
@@ -47,6 +48,7 @@ static BinTreeNode* node_sucessor(BinTreeNode* tree){
     }
     return nullptr;
 }
+
 
 // Busca pelo Maior valor na sub-árvore à esquerda
 static BinTreeNode* node_predecessor(BinTreeNode* tree){
@@ -223,6 +225,48 @@ static void tree_stats(BinTreeNode* tree) {
               << "\naltura="  << tree_height(tree)
               << "\nbalance=" << tree_balance(tree)   << "\n";
 
+}
+
+
+// Funções de Leetcode
+
+static int tree_sum(BinTreeNode* tree, int acumulador = 0){
+    if (is_empty(tree)) { // caso base
+       return acumulador;
+    }
+    // soma o nó atual
+    acumulador += tree->value;
+
+    // passa o acumulador já somado como parametro e salva o resultado em acumulador
+    acumulador = tree_sum(tree->left_child,acumulador);
+
+    // todo passo recursivo tem uma chamada de retorna oculta que retorna para a chamada que o criou ao final
+
+    // acessa o nó da direita
+    return tree_sum(tree->right_child, acumulador);
+
+    // return implicito da chamada filha para a criadora
+}
+
+// soma todos os nós da árvore atual com base em intervalo definido (inclusivo)
+static int tree_sum_conditional(BinTreeNode* tree, int min, int max, int acumulador = 0){
+    if (is_empty(tree)) { // caso base
+       return acumulador;
+    }
+    if (tree->value >= min && tree->value <= max) {
+        acumulador += tree->value;
+
+    }
+
+    // passa o acumulador já somado como parametro e salva o resultado em acumulador
+    acumulador = tree_sum_conditional(tree->left_child,min, max,acumulador);
+
+    // todo passo recursivo tem uma chamada de retorna oculta que retorna para a chamada que o criou ao final
+
+    // acessa o nó da direita
+    return tree_sum_conditional(tree->right_child, min, max, acumulador);
+
+    // return implicito da chamada filha para a criadora
 }
 
 #endif
