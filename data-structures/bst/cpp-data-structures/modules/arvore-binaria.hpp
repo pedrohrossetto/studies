@@ -1,59 +1,58 @@
 #ifndef _HPP_ARVORE_BINARIA
 #define _HPP_ARVORE_BINARIA
 #include <iostream>
-#include <locale>
 #include "utils_plus.hpp"
 
 
 
 // Struct básica para manipulação de Árvores Binárias
-struct BinTreeNode
+struct TreeNode
 {
-    int value;
-    BinTreeNode *left_child;
-    BinTreeNode *right_child;
+    int val;
+    TreeNode *left;
+    TreeNode *right;
 
-    BinTreeNode(int val) : value(val), left_child(nullptr), right_child(nullptr) {  }
+    TreeNode(int val) : val(val), left(nullptr), right(nullptr) {  }
 };
 
 // Factory básica de criação de novos Nós
-static BinTreeNode* create_node(int val) {
-    return new BinTreeNode(val);
+static TreeNode* create_node(int val) {
+    return new TreeNode(val);
 }
 
-static bool is_empty(BinTreeNode* tree){
-    return tree == nullptr;
+static bool is_empty(TreeNode* root){
+    return root == nullptr;
 }
 
 // Busca pelo menor valor da árvore (o valor mais à esquerda)
-static BinTreeNode* tree_min(BinTreeNode* tree){
-    while (tree->left_child != nullptr) {
-        tree = tree->left_child;
+static TreeNode* tree_min(TreeNode* root){
+    while (root->left != nullptr) {
+        root = root->left;
     }
-    return tree;
+    return root;
 }
 
 // Busca pelo maior valor da árvore (o valor mais à direita)
-static BinTreeNode* tree_max(BinTreeNode *tree){
-    while (tree->right_child != nullptr) {
-        tree = tree->right_child;
+static TreeNode* tree_max(TreeNode *root){
+    while (root->right != nullptr) {
+        root = root->right;
     }
-    return tree;
+    return root;
 }
 
 // Busca pelo menor valor na sub-árvore à direita
-static BinTreeNode* node_sucessor(BinTreeNode* tree){
-    if (tree->right_child != nullptr) {
-        return tree_min(tree->right_child);
+static TreeNode* node_sucessor(TreeNode* root){
+    if (root->right != nullptr) {
+        return tree_min(root->right);
     }
     return nullptr;
 }
 
 
 // Busca pelo Maior valor na sub-árvore à esquerda
-static BinTreeNode* node_predecessor(BinTreeNode* tree){
-    if (tree->left_child != nullptr) {
-        return tree_max(tree->left_child);
+static TreeNode* node_predecessor(TreeNode* root){
+    if (root->left != nullptr) {
+        return tree_max(root->left);
     }
     return nullptr;
 }
@@ -61,45 +60,45 @@ static BinTreeNode* node_predecessor(BinTreeNode* tree){
 // Algoritmo de definição de altura da árvore
 // Complexidade de tempo O(n) e espaço O(h) n = nós da árvore e h = altura da árvore
 // assume padrão nível da raiz = 0
-static int tree_height(BinTreeNode* tree){
-    if (tree == nullptr) {
+static int tree_height(TreeNode* root){
+    if (root == nullptr) {
         return -1;
     }
     else {
-        return 1 + std::max(tree_height(tree->left_child),tree_height(tree->right_child));
+        return 1 + std::max(tree_height(root->left),tree_height(root->right));
     }
 }
 
 // Conta nós. Base para a probabilidade 1/(n+1) da inserção randomizada.
-static int tree_size(BinTreeNode* tree) {
-    if (is_empty(tree)) {
+static int tree_size(TreeNode* root) {
+    if (is_empty(root)) {
         return 0;
     }
-    return 1 + tree_size(tree->left_child) + tree_size(tree->right_child);
+    return 1 + tree_size(root->left) + tree_size(root->right);
 }
 
-static int tree_balance(BinTreeNode* tree){
-    return tree_height(tree->left_child) - tree_height(tree->right_child);
+static int tree_balance(TreeNode* root){
+    return tree_height(root->left) - tree_height(root->right);
 }
 
 // to-do algoritmo de limpeza completa da árvore
-static void tree_clear(BinTreeNode* &tree){
-    if (!is_empty(tree)) { //
-        tree_clear(tree->left_child);
-        tree_clear(tree->right_child);
-        delete tree; // destruindo os dados
-        tree = nullptr; // desreferenciando o ponteiro, agora para nulo
+static void tree_clear(TreeNode* &root){
+    if (!is_empty(root)) { //
+        tree_clear(root->left);
+        tree_clear(root->right);
+        delete root; // destruindo os dados
+        root = nullptr; // desreferenciando o ponteiro, agora para nulo
     }
 }
 
 
 
 // busca por um valor específico presenta na árvore
-static bool node_search(BinTreeNode *tree, int val)
+static bool node_search(TreeNode *root, int val)
     {
-        if(is_empty(tree))
+        if(is_empty(root))
             return 0;
-        return tree->value == val || node_search(tree->left_child, val) || node_search(tree->right_child, val);
+        return root->val == val || node_search(root->left, val) || node_search(root->right, val);
     }
 
     /*
@@ -107,164 +106,164 @@ static bool node_search(BinTreeNode *tree, int val)
      */
 
 // busca de forma iterativa (sem recursão) por um valor específico presente na árvore e o retorna
-static BinTreeNode* node_search_iteractive(BinTreeNode* tree,int val){
-    while (tree != nullptr && val != tree->value) {
-        if (val < tree->value) {
-            tree = tree->left_child;
+static TreeNode* node_search_iteractive(TreeNode* root,int val){
+    while (root != nullptr && val != root->val) {
+        if (val < root->val) {
+            root = root->left;
         }
         else {
-            tree = tree->right_child;
+            root = root->right;
         }
     }
-    return tree;
+    return root;
 }
 
-static int node_height_search(BinTreeNode* tree, int val){
+static int node_height_search(TreeNode* root, int val){
 
 }
 
 // Remoção de um node da árvore e sequente manipulação dos ramos
-static void node_delete(BinTreeNode* &tree, int val)
+static void node_delete(TreeNode* &root, int val)
     {
 
-        if (tree == nullptr) return; // Condição de parada
+        if (root == nullptr) return; // Condição de parada
 
-        else if (val < tree->value) {
-            node_delete(tree->left_child,val);
+        else if (val < root->val) {
+            node_delete(root->left,val);
         }
-        else if (val > tree->value) {
-            node_delete(tree->right_child,val);
+        else if (val > root->val) {
+            node_delete(root->right,val);
         }
-        // o caso que resta é que val == tree->value
+        // o caso que resta é que val == root->val
         else {
             // testa se o node tem apenas um filho
-            if (tree->left_child == nullptr || tree->right_child == nullptr) {
-                BinTreeNode *aux = tree; // salvando o endereço do nó a ser excluído
-                tree = (tree->left_child != nullptr) ? tree->left_child : tree->right_child; // t->l != vazio? se sim, t == t->l, se não, t == t->r
+            if (root->left == nullptr || root->right == nullptr) {
+                TreeNode *aux = root; // salvando o endereço do nó a ser excluído
+                root = (root->left != nullptr) ? root->left : root->right; // t->l != vazio? se sim, t == t->l, se não, t == t->r
                 delete aux;
             }
             else { // caso em que há dois filhos
-                BinTreeNode* sucessor = tree->right_child; // o ponteiro sucessor aponta para o endereço de t->r
-                while (sucessor->left_child != nullptr) {
-                    sucessor = sucessor->left_child; // busca o menor valor (ultimo à esquerda) que é o sucessor
+                TreeNode* sucessor = root->right; // o ponteiro sucessor aponta para o endereço de t->r
+                while (sucessor->left != nullptr) {
+                    sucessor = sucessor->left; // busca o menor valor (ultimo à esquerda) que é o sucessor
                 }
-                tree->value = sucessor->value; //valor do node a ser removido passa a ser o do sucessor, mantendo a estrutura
-                node_delete(tree->right_child, tree->value); // recursão para percorrer o ramo à direita
+                root->val = sucessor->val; //valor do node a ser removido passa a ser o do sucessor, mantendo a estrutura
+                node_delete(root->right, root->val); // recursão para percorrer o ramo à direita
             }
         }
     }
 
 // Insere seguindo as regras um node na árvore
-static void tree_insert(BinTreeNode* &tree, int val){
-    if(is_empty(tree)){
-        tree = create_node(val);
+static void tree_insert(TreeNode* &root, int val){
+    if(is_empty(root)){
+        root = create_node(val);
         // Caso Base
         // Insere apenas  quando chega ao final da estrutura
-        // um left_child/right_child de tipo BinTreeNode nullptr é encontrado
+        // um left/right de tipo TreeNode nullptr é encontrado
     }
     else {
-        if(val < tree->value)
-            tree_insert(tree->left_child,val); // passo recursivo 1
+        if(val < root->val)
+            tree_insert(root->left,val); // passo recursivo 1
         else
-            tree_insert(tree->right_child,val); // passo recursivo 2
+            tree_insert(root->right,val); // passo recursivo 2
     }
 }
 
 // n valores aleatórios no intervalo [min_val, max_val], inserção BST comum.
-static void tree_fill_random(BinTreeNode* &tree, int n, int min_val, int max_val) {
+static void tree_fill_random(TreeNode* &root, int n, int min_val, int max_val) {
     for (int i = 0; i < n; ++i) {
-        tree_insert(tree, gerarAleatorio(min_val, max_val));
+        tree_insert(root, gerarAleatorio(min_val, max_val));
     }
 }
 
-static void tree_insert_random(BinTreeNode* &tree, int min_val, int max_val) {
-        tree_insert(tree, gerarAleatorio(min_val, max_val));
+static void tree_insert_random(TreeNode* &root, int min_val, int max_val) {
+        tree_insert(root, gerarAleatorio(min_val, max_val));
 }
 
 // Lógica de ordenação crescente
-static void tree_walk_inorder(BinTreeNode* tree){
-    if (!is_empty(tree)) {
-        tree_walk_inorder(tree->left_child);
-        std::cout << tree->value << " ";
-        tree_walk_inorder(tree->right_child);
+static void tree_walk_inorder(TreeNode* root){
+    if (!is_empty(root)) {
+        tree_walk_inorder(root->left);
+        std::cout << root->val << " ";
+        tree_walk_inorder(root->right);
     }
 }
 
 // lógica de <raiz<left><right>>
-static void tree_walk_preorder(BinTreeNode* tree) {
+static void tree_walk_preorder(TreeNode* root) {
     std::cout << "<";
-    if (!is_empty(tree)) {
-        std::cout << tree->value << " ";
-        tree_walk_preorder(tree->left_child);
+    if (!is_empty(root)) {
+        std::cout << root->val << " ";
+        tree_walk_preorder(root->left);
         std::cout << " ";
-        tree_walk_preorder(tree->right_child);
+        tree_walk_preorder(root->right);
     }
     std::cout << ">";
 }
 
 // lógica de <<left><right>raiz>
-static void tree_walk_postorder(BinTreeNode* tree){
+static void tree_walk_postorder(TreeNode* root){
     // Pos ordem é geralmente utilizado para exclusão e liberação de memória
     // Complexidade: O(n) para tempo e O(h) para espaço de pilha
     // (n é o número de nós e h é a altura da árvore).
     std::cout << "<";
-    if(!is_empty(tree)){
-        tree_walk_postorder(tree->left_child);
+    if(!is_empty(root)){
+        tree_walk_postorder(root->left);
         std::cout << " ";
-        tree_walk_postorder(tree->right_child);
-        std::cout << tree->value << " ";
+        tree_walk_postorder(root->right);
+        std::cout << root->val << " ";
     }
     std::cout << ">";
 
 }
 
-static void tree_stats(BinTreeNode* tree) {
-    std::cout << "Nó atual: " << tree->value
-              <<  "\nL/R: "   << tree->left_child     <<   " / "   << tree->right_child
-              << "\nnos="     << tree_size(tree)
-              << "\naltura="  << tree_height(tree)
-              << "\nbalance=" << tree_balance(tree)   << "\n";
+static void tree_stats(TreeNode* root) {
+    std::cout << "Nó atual: " << root->val
+              <<  "\nL/R: "   << root->left     <<   " / "   << root->right
+              << "\nnos="     << tree_size(root)
+              << "\naltura="  << tree_height(root)
+              << "\nbalance=" << tree_balance(root)   << "\n";
 
 }
 
 
 // Funções de Leetcode
 
-static int tree_sum(BinTreeNode* tree, int acumulador = 0){
-    if (is_empty(tree)) { // caso base
+static int tree_sum(TreeNode* root, int acumulador = 0){
+    if (is_empty(root)) { // caso base
        return acumulador;
     }
     // soma o nó atual
-    acumulador += tree->value;
+    acumulador += root->val;
 
     // passa o acumulador já somado como parametro e salva o resultado em acumulador
-    acumulador = tree_sum(tree->left_child,acumulador);
+    acumulador = tree_sum(root->left,acumulador);
 
     // todo passo recursivo tem uma chamada de retorna oculta que retorna para a chamada que o criou ao final
 
     // acessa o nó da direita
-    return tree_sum(tree->right_child, acumulador);
+    return tree_sum(root->right, acumulador);
 
     // return implicito da chamada filha para a criadora
 }
 
 // soma todos os nós da árvore atual com base em intervalo definido (inclusivo)
-static int tree_sum_conditional(BinTreeNode* tree, int min, int max, int acumulador = 0){
-    if (is_empty(tree)) { // caso base
+static int tree_sum_conditional(TreeNode* root, int min, int max, int acumulador = 0){
+    if (is_empty(root)) { // caso base
        return acumulador;
     }
-    if (tree->value >= min && tree->value <= max) {
-        acumulador += tree->value;
+    if (root->val >= min && root->val <= max) {
+        acumulador += root->val;
 
     }
 
     // passa o acumulador já somado como parametro e salva o resultado em acumulador
-    acumulador = tree_sum_conditional(tree->left_child,min, max,acumulador);
+    acumulador = tree_sum_conditional(root->left,min, max,acumulador);
 
     // todo passo recursivo tem uma chamada de retorna oculta que retorna para a chamada que o criou ao final
 
     // acessa o nó da direita
-    return tree_sum_conditional(tree->right_child, min, max, acumulador);
+    return tree_sum_conditional(root->right, min, max, acumulador);
 
     // return implicito da chamada filha para a criadora
 }

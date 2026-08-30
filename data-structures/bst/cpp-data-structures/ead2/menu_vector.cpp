@@ -9,7 +9,7 @@
 
 int main() {
     limpar_tela();
-    BinTreeNode* root = nullptr;
+    TreeNode* root = nullptr;
     bool rodando = true;
 
     std::vector<MenuAcao> acoes;
@@ -114,10 +114,6 @@ int main() {
         tree_stats(root);
     }});
 
-    acoes.push_back({"Limpar árvore", [&]() {
-        tree_clear(root);
-        std::cout << "Árvore vazia.\n";
-    }});
 
     acoes.push_back({"Exportar DOT/PNG", [&]() {
         export_to_dot(root, "arvore.dot");
