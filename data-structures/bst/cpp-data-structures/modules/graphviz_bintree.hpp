@@ -1,4 +1,3 @@
-#include "arvore-binaria.hpp"
 #include <iostream>
 #include <fstream>
 #include <cstdlib> // Necessário para a função system()
@@ -58,7 +57,7 @@ static void export_to_dot(Node *root, const std::string &filename) {
     int resultado = system(comando.c_str());
 
     if (resultado == 0) {
-        std::cout << "Imagem 'arvore.png' gerada com sucesso via Graphviz!\n";
+        std::cout << "Imagem " << filename << ".png gerada com sucesso via Graphviz!\n";
     } else {
         std::cerr << "Erro ao executar o Graphviz. Verifique se o pacote está instalado no Linux.\n";
     }
