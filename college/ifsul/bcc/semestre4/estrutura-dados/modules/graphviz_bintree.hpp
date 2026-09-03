@@ -5,7 +5,8 @@
 
 // ID Graphviz = endereço do nó (único). O valor só entra no label.
 // Usar t->val como ID funde chaves repetidas e inventa ciclos.
-static void generate_dot_recursive(TreeNode *t, std::ofstream &file) {
+template<typename Node>
+static void generate_dot_recursive(Node *t, std::ofstream &file) {
     if (t == nullptr) return;
 
     file << "    \"" << static_cast<const void*>(t) << "\" [label=\"" << t->val << "\"];\n";
@@ -32,7 +33,8 @@ static void generate_dot_recursive(TreeNode *t, std::ofstream &file) {
 }
 
 // Função principal que exporta e executa o comando via shell
-static void export_to_dot(TreeNode *root, const std::string &filename) {
+template<typename Node>
+static void export_to_dot(Node *root, const std::string &filename) {
     std::ofstream file(filename);
     if (!file.is_open()) {
         std::cerr << "Erro ao criar o arquivo DOT!\n";

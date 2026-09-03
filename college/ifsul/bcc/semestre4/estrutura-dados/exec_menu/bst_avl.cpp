@@ -77,13 +77,13 @@ int main() {
 
     acoes.push_back({"Predecessor do nó",[&](){
         if (is_empty(root)) { std::cout << "Árvore vazia.\n"; return; }
-        TreeNode* pred = node_predecessor(root);
+        AVLNode* pred = node_predecessor(root);
         std::cout << (pred ? std::to_string(pred->val) : "Nenhum") << "\n";
     }});
 
     acoes.push_back({"Sucessor do nó",[&](){
         if (is_empty(root)) { std::cout << "Árvore vazia.\n"; return; }
-        TreeNode* suc = node_sucessor(root);
+        AVLNode* suc = node_sucessor(root);
         std::cout << (suc ? std::to_string(suc->val) : "Nenhum") << "\n";
     }});
 
