@@ -76,11 +76,11 @@ int main() {
     }});
 
     acoes.push_back({"Predecessor do nó",[&](){
-        std::cout << node_predecessor(root);
+        std::cout << node_predecessor(root)->val;
     }});
 
     acoes.push_back({"Sucessor do nó",[&](){
-        std::cout << node_sucessor(root);
+        std::cout << node_sucessor(root)->val;
     }});
 
     acoes.push_back({"Maior Valor da Árvore",[&](){
