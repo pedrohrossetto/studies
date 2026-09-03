@@ -159,10 +159,21 @@ static void tree_insert_random(AVLNode* &root, int min_val, int max_val) {
 
 static void avl_stats(AVLNode* root) {
     std::cout << "Nó atual: " << root->val
-              << "\nL/R: "    << root->left  << " / " << root->right
+              << "\nL/R: "    << root->left->val  << " / " << root->right->val
               << "\nnos="     << tree_size(root)
               << "\naltura="  << root->height
               << "\nbalance=" << avl_balance(root) << "\n";
+}
+
+// Override de tree_clear
+// to-do algoritmo de limpeza completa da árvore
+inline void tree_clear(AVLNode* &root){
+    if (!is_empty(root)) { //
+        tree_clear(root->left);
+        tree_clear(root->right);
+        delete root; // destruindo os dados
+        root = nullptr; // desreferenciando o ponteiro, agora para nulo
+    }
 }
 
 #endif // ARVORE_AVL_HPP

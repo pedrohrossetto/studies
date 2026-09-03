@@ -101,7 +101,6 @@ inline void tree_clear(TreeNode* &root){
 }
 
 
-
 // busca por um valor específico presenta na árvore
 inline bool node_search(TreeNode *root, int val)
     {
