@@ -163,42 +163,44 @@ static int tree_sum_conditional(AVLNode* root, int min, int max, int acumulador 
 // ── Rotações ──────────────────────────────────────────────────────────────────
 
 /*
- *     y                x
- *    / \      =>      / \
- *   x   C            A   y
- *  / \                  / \
- * A   B                B   C
+ *     root              left
+ *    /    \      =>    /    \
+ *  left    C          A    root
+ *  /  \                   /  \
+ * A    X                 X    C
  */
-static AVLNode* avl_rotate_right(AVLNode* y) {
-    AVLNode* x = y->left;
-    AVLNode* B = x->right;
+static AVLNode* avl_rotate_right(AVLNode* root) {
+    AVLNode* left   = root->left;
+    AVLNode* X    = left->right;
 
-    x->right = y;
-    y->left  = B;
+    left->right = root;
+    root->left  = X;
 
-    avl_update_height(y); // y é filho agora — atualizar antes de x
-    avl_update_height(x);
-    return x;
+    avl_update_height(root); // root é filho agora — atualizar antes de left
+    avl_update_height(left);
+    return left;
 }
 
 /*
- *   x                y
- *  / \      =>      / \
- * A   y            x   C
- *    / \          / \
- *   B   C        A   B
+ *   root              right
+ *  /    \      =>    /     \
+ * A    right       root     C
+ *      /  \        /  \
+*    X   C         A    X
  */
-static AVLNode* avl_rotate_left(AVLNode* x) {
-    AVLNode* y = x->right;
-    AVLNode* B = y->left;
+static AVLNode* avl_rotate_left(AVLNode* root) {
+    AVLNode* right  = root->right;
+    AVLNode* X    = right->left;
 
-    y->left  = x;
-    x->right = B;
+    right->left  = root;
+    root->right  = X;
 
-    avl_update_height(x);
-    avl_update_height(y);
-    return y;
+    avl_update_height(root); // root é filho agora — atualizar antes de right
+    avl_update_height(right);
+    return right;
 }
+
+
 
 // ── Rebalanceamento ───────────────────────────────────────────────────────────
 
@@ -206,15 +208,16 @@ static AVLNode* avl_rebalance(AVLNode* root) {
     int bal = avl_balance(root);
 
     if (bal > 1) {
-        if (avl_balance(root->left) < 0)          // Caso LR: dupla rotação
+        if (avl_balance(root->left) < 0)          // left right rotation
             root->left = avl_rotate_left(root->left);
-        return avl_rotate_right(root);             // Caso LL
+        return avl_rotate_right(root);            // right rotation
     }
 
     if (bal < -1) {
-        if (avl_balance(root->right) > 0)          // Caso RL: dupla rotação
+        if (avl_balance(root->right) > 0)          // right left rotation
             root->right = avl_rotate_right(root->right);
-        return avl_rotate_left(root);              // Caso RR
+        return avl_rotate_left(root);              // left rotation
+
     }
 
     return root;
