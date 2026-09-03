@@ -1,5 +1,5 @@
-#ifndef _HPP_ARVORE_BINARIA
-#define _HPP_ARVORE_BINARIA
+#ifndef ARVORE_BINARIA_HPP
+#define ARVORE_BINARIA_HPP
 #include <iostream>
 #include "utils_plus.hpp"
 
@@ -16,16 +16,19 @@ struct TreeNode
 };
 
 // Factory básica de criação de novos Nós
-static TreeNode* create_node(int val) {
+inline TreeNode* create_node(int val) {
     return new TreeNode(val);
 }
 
-static bool is_empty(TreeNode* root){
+inline bool is_empty(TreeNode* root){
     return root == nullptr;
 }
 
 // Busca pelo menor valor da árvore (o valor mais à esquerda)
-static TreeNode* tree_min(TreeNode* root){
+inline TreeNode* tree_min(TreeNode* root){
+    if (root == nullptr) {
+        return nullptr;
+    }
     while (root->left != nullptr) {
         root = root->left;
     }
@@ -33,7 +36,10 @@ static TreeNode* tree_min(TreeNode* root){
 }
 
 // Busca pelo maior valor da árvore (o valor mais à direita)
-static TreeNode* tree_max(TreeNode *root){
+inline TreeNode* tree_max(TreeNode *root){
+    if (root == nullptr) {
+        return nullptr;
+    }
     while (root->right != nullptr) {
         root = root->right;
     }
@@ -41,7 +47,7 @@ static TreeNode* tree_max(TreeNode *root){
 }
 
 // Busca pelo menor valor na sub-árvore à direita
-static TreeNode* node_sucessor(TreeNode* root){
+inline TreeNode* node_sucessor(TreeNode* root){
     if (root->right != nullptr) {
         return tree_min(root->right);
     }
@@ -50,7 +56,7 @@ static TreeNode* node_sucessor(TreeNode* root){
 
 
 // Busca pelo Maior valor na sub-árvore à esquerda
-static TreeNode* node_predecessor(TreeNode* root){
+inline TreeNode* node_predecessor(TreeNode* root){
     if (root->left != nullptr) {
         return tree_max(root->left);
     }
@@ -60,7 +66,7 @@ static TreeNode* node_predecessor(TreeNode* root){
 // Algoritmo de definição de altura da árvore
 // Complexidade de tempo O(n) e espaço O(h) n = nós da árvore e h = altura da árvore
 // assume padrão nível da raiz = 0
-static int tree_height(TreeNode* root){
+inline int tree_height(TreeNode* root){
     if (root == nullptr) {
         return -1;
     }
@@ -70,19 +76,22 @@ static int tree_height(TreeNode* root){
 }
 
 // Conta nós. Base para a probabilidade 1/(n+1) da inserção randomizada.
-static int tree_size(TreeNode* root) {
+inline int tree_size(TreeNode* root) {
     if (is_empty(root)) {
         return 0;
     }
     return 1 + tree_size(root->left) + tree_size(root->right);
 }
 
-static int tree_balance(TreeNode* root){
+inline int tree_balance(TreeNode* root){
+    if (root == nullptr) {
+        return 0;
+    }
     return tree_height(root->left) - tree_height(root->right);
 }
 
 // to-do algoritmo de limpeza completa da árvore
-static void tree_clear(TreeNode* &root){
+inline void tree_clear(TreeNode* &root){
     if (!is_empty(root)) { //
         tree_clear(root->left);
         tree_clear(root->right);
@@ -94,11 +103,17 @@ static void tree_clear(TreeNode* &root){
 
 
 // busca por um valor específico presenta na árvore
-static bool node_search(TreeNode *root, int val)
+inline bool node_search(TreeNode *root, int val)
     {
         if(is_empty(root))
-            return 0;
-        return root->val == val || node_search(root->left, val) || node_search(root->right, val);
+            return false;
+        if (root->val == val) {
+            return true;
+        }
+        if (val < root->val) {
+            return node_search(root->left, val);
+        }
+        return node_search(root->right, val);
     }
 
     /*
@@ -106,7 +121,7 @@ static bool node_search(TreeNode *root, int val)
      */
 
 // busca de forma iterativa (sem recursão) por um valor específico presente na árvore e o retorna
-static TreeNode* node_search_iteractive(TreeNode* root,int val){
+inline TreeNode* node_search_iteractive(TreeNode* root,int val){
     while (root != nullptr && val != root->val) {
         if (val < root->val) {
             root = root->left;
@@ -119,12 +134,12 @@ static TreeNode* node_search_iteractive(TreeNode* root,int val){
 }
 
 // não implementado
-static int node_height_search(TreeNode* root, int val){
-    return 0;
+inline int node_height_search(TreeNode* root, int val){
+    return -1;
 }
 
 // Remoção de um node da árvore e sequente manipulação dos ramos
-static void node_delete(TreeNode* &root, int val)
+inline void node_delete(TreeNode* &root, int val)
     {
 
         if (root == nullptr) return; // Condição de parada
@@ -155,7 +170,7 @@ static void node_delete(TreeNode* &root, int val)
     }
 
 // Insere seguindo as regras um node na árvore
-static void tree_insert(TreeNode* &root, int val){
+inline void tree_insert(TreeNode* &root, int val){
     if(is_empty(root)){
         root = create_node(val);
         // Caso Base
@@ -171,18 +186,18 @@ static void tree_insert(TreeNode* &root, int val){
 }
 
 // n valores aleatórios no intervalo [min_val, max_val], inserção BST comum.
-static void tree_fill_random(TreeNode* &root, int n, int min_val, int max_val) {
+inline void tree_fill_random(TreeNode* &root, int n, int min_val, int max_val) {
     for (int i = 0; i < n; ++i) {
         tree_insert(root, gerarAleatorio(min_val, max_val));
     }
 }
 
-static void tree_insert_random(TreeNode* &root, int min_val, int max_val) {
+inline void tree_insert_random(TreeNode* &root, int min_val, int max_val) {
         tree_insert(root, gerarAleatorio(min_val, max_val));
 }
 
 // Lógica de ordenação crescente
-static void tree_walk_inorder(TreeNode* root){
+inline void tree_walk_inorder(TreeNode* root){
     if (!is_empty(root)) {
         tree_walk_inorder(root->left);
         std::cout << root->val << " ";
@@ -191,7 +206,7 @@ static void tree_walk_inorder(TreeNode* root){
 }
 
 // lógica de <raiz<left><right>>
-static void tree_walk_preorder(TreeNode* root) {
+inline void tree_walk_preorder(TreeNode* root) {
     std::cout << "<";
     if (!is_empty(root)) {
         std::cout << root->val << " ";
@@ -203,7 +218,7 @@ static void tree_walk_preorder(TreeNode* root) {
 }
 
 // lógica de <<left><right>raiz>
-static void tree_walk_postorder(TreeNode* root){
+inline void tree_walk_postorder(TreeNode* root){
     // Pos ordem é geralmente utilizado para exclusão e liberação de memória
     // Complexidade: O(n) para tempo e O(h) para espaço de pilha
     // (n é o número de nós e h é a altura da árvore).
@@ -218,7 +233,11 @@ static void tree_walk_postorder(TreeNode* root){
 
 }
 
-static void tree_stats(TreeNode* root) {
+inline void tree_stats(TreeNode* root) {
+    if (root == nullptr) {
+        std::cout << "Root nullptr.\n";
+        return;
+    }
     std::cout << "Nó atual: " << root->val
               <<  "\nL/R: "   << root->left     <<   " / "   << root->right
               << "\nnos="     << tree_size(root)
@@ -230,7 +249,7 @@ static void tree_stats(TreeNode* root) {
 
 // Funções de Leetcode
 
-static int tree_sum(TreeNode* root, int acumulador = 0){
+inline int tree_sum(TreeNode* root, int acumulador = 0){
     if (is_empty(root)) { // caso base
        return acumulador;
     }
@@ -249,7 +268,7 @@ static int tree_sum(TreeNode* root, int acumulador = 0){
 }
 
 // soma todos os nós da árvore atual com base em intervalo definido (inclusivo)
-static int tree_sum_conditional(TreeNode* root, int min, int max, int acumulador = 0){
+inline int tree_sum_conditional(TreeNode* root, int min, int max, int acumulador = 0){
     if (is_empty(root)) { // caso base
        return acumulador;
     }
