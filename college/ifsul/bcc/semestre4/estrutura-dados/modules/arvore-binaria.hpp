@@ -118,8 +118,9 @@ static TreeNode* node_search_iteractive(TreeNode* root,int val){
     return root;
 }
 
+// não implementado
 static int node_height_search(TreeNode* root, int val){
-
+    return 0;
 }
 
 // Remoção de um node da árvore e sequente manipulação dos ramos
