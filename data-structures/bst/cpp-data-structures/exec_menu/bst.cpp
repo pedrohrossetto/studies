@@ -39,10 +39,20 @@ int main() {
         std::cout << "Inserido.\n";
     }});
 
-    acoes.push_back({"Buscar", [&]() {
+    acoes.push_back({"Buscar nó", [&]() {
         int val = lerInteiroValido("Valor: ");
         if (node_search(root, val)) {
             std::cout << "Encontrado.\n";
+        } else {
+            std::cout << "Não encontrado.\n";
+        }
+    }});
+
+    acoes.push_back({"Buscar nó e sua altura", [&]() {
+        int val = lerInteiroValido("Valor: ");
+        int height = node_height_search(root, val);
+        if (height != -1) {
+            std::cout << "Encontrado. Altura: " << height << "\n";
         } else {
             std::cout << "Não encontrado.\n";
         }
@@ -84,11 +94,11 @@ int main() {
     }});
 
     acoes.push_back({"Maior Valor da Árvore",[&](){
-        std::cout << tree_max(root);
+        std::cout << tree_max(root)->val;
     }});
 
     acoes.push_back({"Menor Valor da Árvore",[&](){
-        std::cout << tree_min(root);
+        std::cout << tree_min(root)->val;
     }});
 
     acoes.push_back({"Soma dos elementos da Árvore",[&](){
@@ -108,7 +118,6 @@ int main() {
     acoes.push_back({"Tamanho da Árvore",[&](){
         std::cout << tree_size(root);
     }});
-
 
     acoes.push_back({"Estatísticas Compiladas", [&]() {
         tree_stats(root);

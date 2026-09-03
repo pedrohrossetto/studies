@@ -9,8 +9,8 @@
 struct TreeNode
 {
     int val;
-    TreeNode *left;
-    TreeNode *right;
+    TreeNode* left;
+    TreeNode* right;
 
     TreeNode(int val) : val(val), left(nullptr), right(nullptr) {  }
 };
@@ -101,6 +101,7 @@ inline void tree_clear(TreeNode* &root){
 }
 
 
+
 // busca por um valor específico presenta na árvore
 inline bool node_search(TreeNode *root, int val)
     {
@@ -132,10 +133,21 @@ inline TreeNode* node_search_iteractive(TreeNode* root,int val){
     return root;
 }
 
-// não implementado
-inline int node_height_search(TreeNode* root, int val){
-    return -1;
-}
+// percursao por pre ordem
+inline int node_height_search(TreeNode* root, int val, int height=0){
+    if (is_empty(root)) {
+        return -1;
+        }
+    if (root->val == val) {
+        return height;
+        }
+    if (root->val > val) {
+        return node_height_search(root->left, val, height+1);
+        }
+    else {
+        return node_height_search(root->right, val,height+1);
+        }
+    }
 
 // Remoção de um node da árvore e sequente manipulação dos ramos
 inline void node_delete(TreeNode* &root, int val)
@@ -238,7 +250,7 @@ inline void tree_stats(TreeNode* root) {
         return;
     }
     std::cout << "Nó atual: " << root->val
-              <<  "\nL/R: "   << root->left     <<   " / "   << root->right
+              <<  "\nL/R: "   << root->left->val     <<   " / "   << root->right->val
               << "\nnos="     << tree_size(root)
               << "\naltura="  << tree_height(root)
               << "\nbalance=" << tree_balance(root)   << "\n";
