@@ -3,6 +3,7 @@
 #include "../modules/menu_funcoes.hpp"
 #include "../modules/utils_plus.hpp"
 #include <iostream>
+#include <string>
 
 
 
@@ -47,11 +48,11 @@ int main() {
         }
     }});
 
-    lista_adicionar(acoes, {"Buscar nó e sua altura", [&]() {
+    lista_adicionar(acoes, {"Buscar nó e seu nível (raiz = 0)", [&]() {
         int val = lerInteiroValido("Valor: ");
-        int height = node_height_search(root, val);
-        if (height != -1) {
-            std::cout << "Encontrado. Altura: " << height << "\n";
+        int nivel = node_level(root, val);
+        if (nivel != -1) {
+            std::cout << "Encontrado. Nível: " << nivel << "\n";
         } else {
             std::cout << "Não encontrado.\n";
         }
@@ -84,19 +85,33 @@ int main() {
     }});
 
     lista_adicionar(acoes, {"Predecessor do nó", [&]() {
-        std::cout << node_predecessor(root)->val;
+        int val = lerInteiroValido("Valor: ");
+        if (!node_search(root, val)) {
+            std::cout << "Não encontrado.\n";
+            return;
+        }
+        TreeNode* pred = tree_predecessor(root, val);
+        std::cout << (pred ? std::to_string(pred->val) : "Nenhum") << "\n";
     }});
 
     lista_adicionar(acoes, {"Sucessor do nó", [&]() {
-        std::cout << node_sucessor(root)->val;
+        int val = lerInteiroValido("Valor: ");
+        if (!node_search(root, val)) {
+            std::cout << "Não encontrado.\n";
+            return;
+        }
+        TreeNode* suc = tree_sucessor(root, val);
+        std::cout << (suc ? std::to_string(suc->val) : "Nenhum") << "\n";
     }});
 
     lista_adicionar(acoes, {"Maior Valor da Árvore", [&]() {
-        std::cout << tree_max(root)->val;
+        if (is_empty(root)) { std::cout << "Árvore vazia.\n"; return; }
+        std::cout << tree_max(root)->val << "\n";
     }});
 
     lista_adicionar(acoes, {"Menor Valor da Árvore", [&]() {
-        std::cout << tree_min(root)->val;
+        if (is_empty(root)) { std::cout << "Árvore vazia.\n"; return; }
+        std::cout << tree_min(root)->val << "\n";
     }});
 
     lista_adicionar(acoes, {"Soma dos elementos da Árvore", [&]() {

@@ -1,6 +1,8 @@
 #ifndef ARVORE_BINARIA_HPP
 #define ARVORE_BINARIA_HPP
+#include <algorithm>
 #include <iostream>
+#include <string>
 #include "utils_plus.hpp"
 
 
@@ -46,21 +48,49 @@ inline TreeNode* tree_max(TreeNode *root){
     return root;
 }
 
-// Busca pelo menor valor na sub-árvore à direita
+// Sucessor de um nó específico: só existe se o nó tiver filho direito
+// (sem ponteiro para pai não dá para subir na árvore).
 inline TreeNode* node_sucessor(TreeNode* root){
-    if (root->right != nullptr) {
-        return tree_min(root->right);
+    if (root == nullptr || root->right == nullptr) {
+        return nullptr;
     }
-    return nullptr;
+    return tree_min(root->right);
 }
 
-
-// Busca pelo Maior valor na sub-árvore à esquerda
+// Predecessor de um nó específico: só existe se o nó tiver filho esquerdo.
 inline TreeNode* node_predecessor(TreeNode* root){
-    if (root->left != nullptr) {
-        return tree_max(root->left);
+    if (root == nullptr || root->left == nullptr) {
+        return nullptr;
     }
-    return nullptr;
+    return tree_max(root->left);
+}
+
+// Sucessor in-ordem de um valor, andando a partir da raiz. Cobre o caso sem filho direito.
+inline TreeNode* tree_sucessor(TreeNode* root, int val) {
+    TreeNode* suc = nullptr;
+    while (root != nullptr) {
+        if (val < root->val) {
+            suc = root;
+            root = root->left;
+        } else {
+            root = root->right;
+        }
+    }
+    return suc;
+}
+
+// Predecessor in-ordem de um valor, andando a partir da raiz. Cobre o caso sem filho esquerdo.
+inline TreeNode* tree_predecessor(TreeNode* root, int val) {
+    TreeNode* pred = nullptr;
+    while (root != nullptr) {
+        if (val > root->val) {
+            pred = root;
+            root = root->right;
+        } else {
+            root = root->left;
+        }
+    }
+    return pred;
 }
 
 // Algoritmo de definição de altura da árvore
@@ -133,21 +163,24 @@ inline TreeNode* node_search_iteractive(TreeNode* root,int val){
     return root;
 }
 
-// percursao por pre ordem
-inline int node_height_search(TreeNode* root, int val, int height=0){
+// Nível/profundidade a partir da raiz (raiz = 0). Não é a altura da subárvore.
+// -1 se o valor não existir.
+inline int node_height_search(TreeNode* root, int val, int height = 0) {
     if (is_empty(root)) {
         return -1;
-        }
+    }
     if (root->val == val) {
         return height;
-        }
-    if (root->val > val) {
-        return node_height_search(root->left, val, height+1);
-        }
-    else {
-        return node_height_search(root->right, val,height+1);
-        }
     }
+    if (val < root->val) {
+        return node_height_search(root->left, val, height + 1);
+    }
+    return node_height_search(root->right, val, height + 1);
+}
+
+inline int node_level(TreeNode* root, int val, int nivel = 0) {
+    return node_height_search(root, val, nivel);
+}
 
 // Remoção de um node da árvore e sequente manipulação dos ramos
 inline void node_delete(TreeNode* &root, int val)
@@ -192,12 +225,19 @@ inline void tree_insert(TreeNode* &root, int val){
         if(val < root->val)
             tree_insert(root->left,val); // passo recursivo 1
         else
-            tree_insert(root->right,val); // passo recursivo 2
+            tree_insert(root->right,val); // iguais vão à direita
     }
 }
 
-// n valores aleatórios no intervalo [min_val, max_val], inserção BST comum.
+// n valores aleatórios no intervalo [min_val, max_val], inserção BST comum (duplicatas permitidas).
 inline void tree_fill_random(TreeNode* &root, int n, int min_val, int max_val) {
+    if (n <= 0) {
+        return;
+    }
+    if (min_val > max_val) {
+        std::cout << "[ERRO] Limite menor maior que o maior.\n";
+        return;
+    }
     for (int i = 0; i < n; ++i) {
         tree_insert(root, gerarAleatorio(min_val, max_val));
     }
@@ -246,15 +286,17 @@ inline void tree_walk_postorder(TreeNode* root){
 
 inline void tree_stats(TreeNode* root) {
     if (root == nullptr) {
-        std::cout << "Root nullptr.\n";
+        std::cout << "Árvore vazia.\n";
         return;
     }
+    auto filho = [](TreeNode* n) -> std::string {
+        return n ? std::to_string(n->val) : "null";
+    };
     std::cout << "Nó atual: " << root->val
-              <<  "\nL/R: "   << root->left->val     <<   " / "   << root->right->val
+              << "\nL/R: "    << filho(root->left) << " / " << filho(root->right)
               << "\nnos="     << tree_size(root)
               << "\naltura="  << tree_height(root)
-              << "\nbalance=" << tree_balance(root)   << "\n";
-
+              << "\nbalance=" << tree_balance(root) << "\n";
 }
 
 

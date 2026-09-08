@@ -3,6 +3,7 @@
 #include "../modules/menu_funcoes.hpp"
 #include "../modules/utils_plus.hpp"
 #include <iostream>
+#include <string>
 
 
 
@@ -74,14 +75,22 @@ int main() {
     }});
 
     lista_adicionar(acoes, {"Predecessor do nó", [&]() {
-        if (is_empty(root)) { std::cout << "Árvore vazia.\n"; return; }
-        AVLNode* pred = node_predecessor(root);
+        int val = lerInteiroValido("Valor: ");
+        if (!node_search(root, val)) {
+            std::cout << "Não encontrado.\n";
+            return;
+        }
+        AVLNode* pred = tree_predecessor(root, val);
         std::cout << (pred ? std::to_string(pred->val) : "Nenhum") << "\n";
     }});
 
     lista_adicionar(acoes, {"Sucessor do nó", [&]() {
-        if (is_empty(root)) { std::cout << "Árvore vazia.\n"; return; }
-        AVLNode* suc = node_sucessor(root);
+        int val = lerInteiroValido("Valor: ");
+        if (!node_search(root, val)) {
+            std::cout << "Não encontrado.\n";
+            return;
+        }
+        AVLNode* suc = tree_sucessor(root, val);
         std::cout << (suc ? std::to_string(suc->val) : "Nenhum") << "\n";
     }});
 
@@ -124,7 +133,7 @@ int main() {
     }});
 
     lista_adicionar(acoes, {"Exportar DOT/PNG", [&]() {
-        export_to_dot(root, "arvore.dot");
+        export_to_dot(root, "arvore");
     }});
 
     while (rodando) {

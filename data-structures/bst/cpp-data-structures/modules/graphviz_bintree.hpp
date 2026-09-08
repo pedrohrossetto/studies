@@ -1,6 +1,10 @@
+#ifndef GRAPHVIZ_BINTREE_HPP
+#define GRAPHVIZ_BINTREE_HPP
+
 #include <iostream>
 #include <fstream>
-#include <cstdlib> // Necessário para a função system()
+#include <string>
+#include <cstdlib>
 
 // ID Graphviz = endereço do nó (único). O valor só entra no label.
 // Usar t->val como ID funde chaves repetidas e inventa ciclos.
@@ -62,3 +66,5 @@ static void export_to_dot(Node *root, const std::string &filename) {
         std::cerr << "Erro ao executar o Graphviz. Verifique se o pacote está instalado no Linux.\n";
     }
 }
+
+#endif // GRAPHVIZ_BINTREE_HPP
