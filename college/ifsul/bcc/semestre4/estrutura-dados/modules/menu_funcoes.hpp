@@ -19,14 +19,14 @@ struct ListaMenuAcao {
     int tamanho;
 };
 
-static ListaMenuAcao lista_criar() {
+inline ListaMenuAcao lista_criar() {
     ListaMenuAcao lista;
     lista.cabeca  = nullptr;
     lista.tamanho = 0;
     return lista;
 }
 
-static void lista_adicionar(ListaMenuAcao& lista, MenuAcao acao) {
+inline void lista_adicionar(ListaMenuAcao& lista, MenuAcao acao) {
     NodoMenu* novo = new NodoMenu;
     novo->acao     = acao;
     novo->proximo  = nullptr;
@@ -42,7 +42,7 @@ static void lista_adicionar(ListaMenuAcao& lista, MenuAcao acao) {
     lista.tamanho++;
 }
 
-static void menu_listar(const ListaMenuAcao& lista) {
+inline void menu_listar(const ListaMenuAcao& lista) {
     NodoMenu* atual = lista.cabeca;
     int i = 0;
     while (atual != nullptr) {
@@ -52,7 +52,7 @@ static void menu_listar(const ListaMenuAcao& lista) {
     }
 }
 
-static void menu_executar(const ListaMenuAcao& lista, int indice) {
+inline void menu_executar(const ListaMenuAcao& lista, int indice) {
     if (indice < 0 || indice >= lista.tamanho) {
         std::cout << "Índice fora da lista.\n";
         return;
@@ -63,7 +63,7 @@ static void menu_executar(const ListaMenuAcao& lista, int indice) {
     atual->acao.executar();
 }
 
-static void lista_liberar(ListaMenuAcao& lista) {
+inline void lista_liberar(ListaMenuAcao& lista) {
     NodoMenu* atual = lista.cabeca;
     while (atual != nullptr) {
         NodoMenu* proximo = atual->proximo;

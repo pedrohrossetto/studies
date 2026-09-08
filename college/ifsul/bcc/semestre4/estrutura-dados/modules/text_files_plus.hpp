@@ -4,8 +4,9 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <cstring> // Para strerror
-#include <cerrno>  // Para errno
+#include <cstring>
+#include <cerrno>
+#include <initializer_list>
 
 /**
  * @brief Tenta abrir um arquivo para leitura e fornece feedback detalhado em caso de falha.
@@ -138,4 +139,29 @@ inline bool ler_arquivo_completo(const std::string &caminho, std::string &conteu
     return true;
 }
 
-#endif // text_files_HPP
+/**
+ * Tenta abrir o primeiro caminho que existir. Só reporta erro se todos falharem.
+ * Útil quando o binário pode ser executado da raiz ou da subpasta (ead4/ead5).
+ */
+inline bool abrir_arquivo_leitura_candidatos(std::ifstream &arquivo,
+                                             std::initializer_list<std::string> caminhos) {
+    std::string tentados;
+    for (const auto &caminho : caminhos) {
+        if (arquivo.is_open()) {
+            arquivo.close();
+        }
+        arquivo.clear();
+        arquivo.open(caminho);
+        if (arquivo.is_open()) {
+            return true;
+        }
+        if (!tentados.empty()) {
+            tentados += ", ";
+        }
+        tentados += caminho;
+    }
+    std::cerr << "\n[ERRO DE ARQUIVO] Nenhum caminho funcionou: " << tentados << "\n";
+    return false;
+}
+
+#endif // TEXT_FILES_HPP

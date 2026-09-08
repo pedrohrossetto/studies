@@ -2,20 +2,18 @@
 #define UTILS_HPP
 
 #include <iostream>
-#include <stdio.h>
+#include <cstdio>
 #include <string>
-#include <limits>    // Necessário para numeric_limits
-//#include <clocale>   // Para setlocale
-//#include <windows.h> // Para manipulação nativa do Console Windows
-#include <cstdlib>   // Para rand() e srand()
-#include <ctime>     // Para time() na semente do aleatório
-#include <iomanip>   // Para std::fixed e std::setprecision
+#include <limits>
+#include <cstdlib>
+#include <ctime>
+#include <iomanip>
 
 /**
  * @brief Limpa o buffer de entrada do cin de forma segura.
  * @details Remove qualquer caractere residual (como o '\n') que possa estragar o próximo getline.
  */
-static void limpar_buffer() {
+inline void limpar_buffer() {
     if (std::cin.bad()) {
         std::cin.clear();
     }
@@ -32,12 +30,12 @@ static void limpar_buffer() {
  * @brief Função de funcionalidade vazia.
  * @details nenhuma funcionalidade.
  */
-static void place_holder() {}
+inline void place_holder() {}
 
 /**
  * @brief Aguarda o usuário pressionar ENTER antes de prosseguir.
  */
-static void pausar() {
+inline void pausar() {
     std::cout << "\nPressione ENTER para continuar...";
     limpar_buffer();
     std::cin.get();
@@ -48,7 +46,7 @@ static void pausar() {
  * @details Substitui o perigoso e lento 'system("cls")' usando a API do Windows.
  */
 
-static void limpar_tela() {
+inline void limpar_tela() {
     // \033[H move o cursor para o canto superior esquerdo (0,0)
     // \033[J limpa a tela do cursor até o final do display
     printf("\033[H\033[J");
@@ -58,7 +56,7 @@ static void limpar_tela() {
 /**
  * @brief Combina a pausa de tela e a limpeza subsequente de forma modular.
  */
-static void pausar_e_limpar() {
+inline void pausar_e_limpar() {
     pausar();
     limpar_tela();
 }
@@ -66,7 +64,7 @@ static void pausar_e_limpar() {
 /**
  * @brief Inverte uma string in-place (diretamente na memória).
  */
-static void inverteString(std::string &str) {
+inline void inverteString(std::string &str) {
     size_t n = str.length();
     for (size_t i = 0; i < n / 2; ++i) {
         char temp = str[i];
@@ -79,7 +77,7 @@ static void inverteString(std::string &str) {
  * @brief Lê um número inteiro garantindo que o usuário não digite letras ou sujeira.
  * @details Loop eterno até que uma entrada estritamente numérica válida seja fornecida.
  */
-static int lerInteiroValido(const std::string& mensagem) {
+inline int lerInteiroValido(const std::string& mensagem) {
     int valor;
     while (true) {
         std::cout << mensagem;
@@ -107,22 +105,27 @@ inline void inicializarAleatorio() {
 /**
  * @brief Gera um número inteiro aleatório dentro de uma faixa inclusiva [min, max].
  */
-static int gerarAleatorio(int min, int max) {
+inline int gerarAleatorio(int min, int max) {
     inicializarAleatorio();
+    if (min > max) {
+        int tmp = min;
+        min = max;
+        max = tmp;
+    }
     return min + std::rand() % (max - min + 1);
 }
 
 /**
  * @brief Formata e exibe um valor float/double no formato de moeda (R$).
  */
-static void mostrarMoeda(double valor) {
+inline void mostrarMoeda(double valor) {
     std::cout << "R$ " << std::fixed << std::setprecision(2) << valor;
 }
 
 /**
  * @brief Desenha uma linha divisória estilizada no console para organizar relatórios.
  */
-static void desenharLinha(char caractere = '-', int tamanho = 50) {
+inline void desenharLinha(char caractere = '-', int tamanho = 50) {
     for (int i = 0; i < tamanho; ++i) {
         std::cout << caractere;
     }
