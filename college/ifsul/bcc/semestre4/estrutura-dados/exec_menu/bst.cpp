@@ -122,7 +122,7 @@ int main() {
     }});
 
     lista_adicionar(acoes, {"Exportar DOT/PNG", [&]() {
-        export_to_dot(root, "arvore.dot");
+        export_to_dot(root, "arvore");
     }});
 
     while (rodando) {

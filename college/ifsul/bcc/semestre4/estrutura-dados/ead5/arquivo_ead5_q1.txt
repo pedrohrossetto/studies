@@ -1,0 +1,6 @@
+inserir 10
+inserir 2
+inserir 3
+inserir 18
+remover 2
+inserir 21

@@ -11,7 +11,7 @@ struct AVLNode {
     AVLNode* left;
     AVLNode* right;
     int height;
-    AVLNode(int val) : val(val), left(nullptr), right(nullptr), height(1) {}
+    AVLNode(int val) : val(val), left(nullptr), right(nullptr), height(0) {}
 };
 
 // ── Utilitários básicos ───────────────────────────────────────────────────────
@@ -26,11 +26,12 @@ static AVLNode* create_avl_node(int val) {
 
 // ── Altura e balanceamento ────────────────────────────────────────────────────
 
-// O(1) — lê a altura armazenada no nó; retorna 0 para nullptr
+// O(1) — lê a altura armazenada no nó; retorna -1 para nullptr (convenção padrão AVL)
 static int avl_height(AVLNode* node) {
-    return node ? node->height : 0;
+    return node ? node->height : -1;
 }
 
+// O(1) — atualiza a altura do nó com base nas alturas dos filhos
 static void avl_update_height(AVLNode* node) {
     node->height = 1 + std::max(avl_height(node->left), avl_height(node->right));
 }
@@ -45,6 +46,34 @@ static int avl_balance(AVLNode* node) {
 static int tree_height(AVLNode* root) {
     if (!root) return -1;
     return 1 + std::max(tree_height(root->left), tree_height(root->right));
+}
+
+// ── Busca ─────────────────────────────────────────────────────────────────────
+
+// busca recursiva aproveitando a ordenação BST: O(log n)
+// retorna true se o valor for encontrado, false caso contrário
+static bool node_search(AVLNode* root, int val) {
+    if (is_empty(root)) return false;
+    if (root->val == val) return true;
+    if (val < root->val) return node_search(root->left,  val);
+    return               node_search(root->right, val);
+}
+// busca iterativa aproveitando a ordenação BST: O(log n)
+// retorna o nó encontrado ou nullptr se não encontrado
+static AVLNode* node_search_iteractive(AVLNode* root, int val) {
+    while (root && val != root->val)
+        root = (val < root->val) ? root->left : root->right;
+    return root;
+}
+
+// retorna o nível (profundidade a partir da raiz) de um valor: raiz = nível 0
+// -1 se o valor não for encontrado — não confundir com AVLNode::height,
+// que mede a altura da subárvore (de baixo para cima), não a profundidade
+static int node_level(AVLNode* root, int val, int nivel = 0) {
+    if (is_empty(root)) return -1;
+    if (root->val == val) return nivel;
+    if (val < root->val) return node_level(root->left,  val, nivel + 1);
+    return               node_level(root->right, val, nivel + 1);
 }
 
 // ── Busca de extremos ─────────────────────────────────────────────────────────
@@ -73,6 +102,53 @@ static AVLNode* node_predecessor(AVLNode* root) {
     return nullptr;
 }
 
+// ── Busca Específicas ─────────────────────────────────────────────────────────
+
+// retorna o LCA (Lowest Common Ancestor) de dois valores na árvore
+// Se um dos valores não for encontrado, retorna nullptr
+// Se ambos os valores forem encontrados, retorna o LCA mais próximo
+// O(log n)
+static AVLNode* lowest_common_ancestor(AVLNode* root, int val, int val2) {
+    if (is_empty(root)) return nullptr;
+    if (!node_search(root,val) || !node_search(root,val2)) {
+        return nullptr;
+    }
+    if (val < root->val && val2 < root->val) return lowest_common_ancestor(root->left, val, val2);
+    if (val > root->val && val2 > root->val) return lowest_common_ancestor(root->right, val, val2);
+    return root;
+}
+
+// imprime os nós de um nível (profundidade a partir da raiz) específico
+// nivel usa contagem regressiva: decrementa a cada descida, imprime ao chegar em 0
+static void print_nodes_at_height(AVLNode* root, int nivel) {
+    if (is_empty(root)) return;
+    if (nivel == 0) {
+        std::cout << root->val << " ";
+    } else {
+        print_nodes_at_height(root->left,  nivel - 1);
+        print_nodes_at_height(root->right, nivel - 1);
+    }
+}
+
+// conta quantos nós existem exatamente em um nível (profundidade a partir da raiz) específico
+static int count_nodes_at_height(AVLNode* root, int nivel) {
+    if (is_empty(root)) return 0;
+    if (nivel == 0) return 1;
+    return count_nodes_at_height(root->left,  nivel - 1)
+         + count_nodes_at_height(root->right, nivel - 1);
+}
+
+// exibe a quantidade de nós em cada nível da árvore
+static void count_nodes_per_height(AVLNode* root) {
+    if (is_empty(root)) return;
+    int altura = tree_height(root); // 0-based (raiz sem filhos = altura 0)
+    for (int nivel = 0; nivel <= altura; nivel++) {
+        std::cout << "Nível " << nivel << ": "
+                   << count_nodes_at_height(root, nivel) << " nós" << std::endl;
+    }
+}
+
+
 // ── Métricas ──────────────────────────────────────────────────────────────────
 
 static int tree_size(AVLNode* root) {
@@ -80,21 +156,6 @@ static int tree_size(AVLNode* root) {
     return 1 + tree_size(root->left) + tree_size(root->right);
 }
 
-// ── Busca ─────────────────────────────────────────────────────────────────────
-
-// busca recursiva aproveitando a ordenação BST: O(log n)
-static bool node_search(AVLNode* root, int val) {
-    if (is_empty(root)) return false;
-    if (root->val == val) return true;
-    if (val < root->val) return node_search(root->left,  val);
-    return               node_search(root->right, val);
-}
-
-static AVLNode* node_search_iteractive(AVLNode* root, int val) {
-    while (root && val != root->val)
-        root = (val < root->val) ? root->left : root->right;
-    return root;
-}
 
 // ── Memória ───────────────────────────────────────────────────────────────────
 
@@ -275,8 +336,21 @@ static void node_delete(AVLNode*& root, int val) {
 // ── Preenchimento aleatório ───────────────────────────────────────────────────
 
 static void tree_fill_random(AVLNode*& root, int n, int min_val, int max_val) {
-    for (int i = 0; i < n; ++i)
-        tree_insert(root, gerarAleatorio(min_val, max_val));
+    int intervalo = max_val - min_val + 1;
+    if (n > intervalo) {
+        std::cout << "[ERRO] Não é possível inserir " << n
+                   << " valores distintos em um intervalo de tamanho " << intervalo << ".\n";
+        return;
+    }
+
+    int inseridos = 0;
+    while (inseridos < n) {
+        int valor = gerarAleatorio(min_val, max_val);
+        if (!node_search(root, valor)) {
+            tree_insert(root, valor);
+            inseridos++;
+        }
+    }
 }
 
 static void tree_insert_random(AVLNode*& root, int min_val, int max_val) {
