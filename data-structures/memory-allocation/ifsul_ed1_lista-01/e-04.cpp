@@ -1,8 +1,8 @@
 #include <iostream>
 #include <ctime>   
 #include <cstdlib> 
-#include "../modules/vetor_dinamico.hpp"
-#include "../modules/utils.hpp"
+#include "../../lib/vetor-dinamico.hpp"
+#include "../../lib/utils.hpp"
 
 
 using namespace std;

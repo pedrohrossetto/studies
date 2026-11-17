@@ -1,7 +1,7 @@
-from .Badge import Badge
-from .Task import Task
-from .User import User
-from .Wallet import Wallet
+from .badge import Badge
+from .task import Task
+from .user import User
+from .wallet import Wallet
 
 
 def main():

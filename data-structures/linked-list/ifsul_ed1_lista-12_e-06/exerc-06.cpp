@@ -20,7 +20,7 @@ struct Reuniao
 };
 
 
-#include "lista_descritor.hpp"
+#include "lista-descritor.hpp"
 
 void dividirReunioesLongas(Lista *lista)
 {

@@ -1,5 +1,5 @@
-#include "../modules/pilhas_template.hpp"
-#include "../modules/utils.hpp"
+#include "../../lib/pilhas-template.hpp"
+#include "../../lib/utils.hpp"
 #include <cstring>
 #include <iostream>
 using namespace std;

@@ -2,9 +2,9 @@
 #include <fstream>
 #include <cstring>
 #include <istream>
-#include "../../modules/filas_template.hpp"
-#include "../../modules/utils.hpp"
-#include "../../modules/text_files.hpp"
+#include "../../lib/filas-template.hpp"
+#include "../../lib/utils.hpp"
+#include "../../lib/text-files.hpp"
 
 
 using namespace std;

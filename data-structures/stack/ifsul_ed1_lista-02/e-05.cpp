@@ -1,6 +1,6 @@
 #include <iostream>
-#include "../modules/pilhas_template.hpp"
-#include "../modules/utils.hpp"
+#include "../../lib/pilhas-template.hpp"
+#include "../../lib/utils.hpp"
 
 
 using namespace std;

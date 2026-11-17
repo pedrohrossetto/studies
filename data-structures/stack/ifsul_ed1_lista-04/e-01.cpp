@@ -1,5 +1,5 @@
-#include "../modules/pilha_dinamica_template.hpp"
-#include "../modules/utils.hpp"
+#include "../../lib/pilha-dinamica-template.hpp"
+#include "../../lib/utils.hpp"
 #include <cstring>
 #include <iostream>
 using namespace std;

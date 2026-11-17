@@ -3,9 +3,9 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, override
 
 if TYPE_CHECKING:
-    from .Badge import Badge
-    from .Task import Task
-    from .Wallet import Wallet
+    from .badge import Badge
+    from .task import Task
+    from .wallet import Wallet
 
 
 class User:

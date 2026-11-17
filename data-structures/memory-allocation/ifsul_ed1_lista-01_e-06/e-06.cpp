@@ -1,8 +1,8 @@
 #include <fstream>
 #include <iostream>
-#include "../../modules/vetor_dinamico.hpp"
-#include "../../modules/text_files.hpp"
-#include "../../modules/utils.hpp"
+#include "../../lib/vetor-dinamico.hpp"
+#include "../../lib/text-files.hpp"
+#include "../../lib/utils.hpp"
 
 
 using namespace std;

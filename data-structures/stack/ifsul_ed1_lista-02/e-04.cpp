@@ -1,6 +1,6 @@
 #include <iostream>
-#include "../modules/pilhas.hpp"
-#include "../modules/utils.hpp"
+#include "../../lib/pilhas.hpp"
+#include "../../lib/utils.hpp"
 
 
 using namespace std;

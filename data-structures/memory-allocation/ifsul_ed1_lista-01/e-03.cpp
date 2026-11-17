@@ -1,7 +1,7 @@
 #include <iostream>
 #include <ctime>   
 #include <cstdlib> 
-#include "../modules/vetor_dinamico.hpp"
+#include "../../lib/vetor-dinamico.hpp"
 
 using namespace std;
 

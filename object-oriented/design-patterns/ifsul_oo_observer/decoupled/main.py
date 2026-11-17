@@ -1,8 +1,8 @@
-from .Badge import Badge
-from .Observer import  Observable
-from .Task import Task
-from .User import User
-from .Wallet import Wallet
+from .badge import Badge
+from .observer import  Observable
+from .task import Task
+from .user import User
+from .wallet import Wallet
 
 
 def main():

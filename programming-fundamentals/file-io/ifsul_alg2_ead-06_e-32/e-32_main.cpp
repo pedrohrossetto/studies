@@ -11,7 +11,7 @@
 #include <iomanip>
 #include <locale.h>
 #include <cmath>
-#include "ead6_e32.hpp"
+#include "e-32.hpp"
 
 
 using namespace std; 

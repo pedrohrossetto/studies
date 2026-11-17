@@ -1,6 +1,6 @@
 from typing import override
 
-from .Wallet import Wallet
+from .wallet import Wallet
 
 
 class User(object):

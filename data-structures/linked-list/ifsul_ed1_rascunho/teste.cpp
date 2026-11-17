@@ -1,4 +1,4 @@
-#include "../modules/lista.hpp"
+#include "../../lib/lista.hpp"
 #include <iostream>
 
 using namespace std;

@@ -10,7 +10,7 @@
 #include <iostream>
 #include <ctime>
 #include <cctype>
-#include "ead6_e31.hpp"
+#include "e-31.hpp"
 
 using namespace std;
 
