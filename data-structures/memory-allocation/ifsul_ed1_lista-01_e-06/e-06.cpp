@@ -1,6 +1,6 @@
 #include <fstream>
 #include <iostream>
-#include "../../lib/vetor-dinamico.hpp"
+#include "../vetor-dinamico.hpp"
 #include "../../lib/text-files.hpp"
 #include "../../lib/utils.hpp"
 

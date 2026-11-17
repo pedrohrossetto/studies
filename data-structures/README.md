@@ -10,7 +10,7 @@ Data structures in C++ (and a BST in Rust), grouped by structure.
 |---|---|
 | [`bst/`](bst/) | Binary search trees and AVL |
 | [`doubly-linked-list/`](doubly-linked-list/) | Doubly linked lists |
-| [`lib/`](lib/) | Shared headers used by the exercises (stack, queue, lists, utils) |
+| [`lib/`](lib/) | Shared utilities used by the exercises (console helpers, text files) |
 | [`linked-list/`](linked-list/) | Singly linked lists, list with descriptor |
 | [`memory-allocation/`](memory-allocation/) | Dynamic memory allocation |
 | [`queue/`](queue/) | Circular and dynamic queues |
@@ -28,6 +28,6 @@ Data structures in C++ (and a BST in Rust), grouped by structure.
 
 ## Related repositories
 
-- [cpp-data-structures](https://github.com/pedrohrossetto/cpp-data-structures) (`bst/cpp-data-structures/`): BST, AVL and graph algorithms in C++ (Data Structures II)
+- [cpp-data-structures](bst/cpp-data-structures/): BST, AVL and graph algorithms in C++ (Data Structures II)
 - [competitive-programming](https://github.com/pedrohrossetto/competitive-programming): LeetCode 938, Range Sum of BST
 

@@ -2,7 +2,7 @@
 #include <fstream>
 #include <cstring>
 #include <istream>
-#include "../../lib/lista-dupla-template.hpp"
+#include "../lista-dupla-template.hpp"
 #include "../../lib/utils.hpp"
 
 

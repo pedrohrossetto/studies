@@ -1,0 +1,12 @@
+build/
+*.o
+*.out
+*.exe
+*.dot
+*.png
+# executables built without extension
+/ead4
+/ead5
+/bst
+/bst-avl
+/bst_avl

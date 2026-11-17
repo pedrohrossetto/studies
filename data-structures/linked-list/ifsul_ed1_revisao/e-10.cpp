@@ -4,7 +4,7 @@
 #include <clocale>
 
 // Suas bibliotecas de módulos (ajuste os caminhos se necessário)
-#include "../../lib/lista-descritor-template-plus.hpp"
+#include "../lista-descritor-template-plus.hpp"
 #include "../../lib/utils-plus.hpp"
 
 using namespace std;

@@ -1,6 +1,3 @@
-[submodule "data-structures/bst/cpp-data-structures"]
-	path = data-structures/bst/cpp-data-structures
-	url = https://github.com/pedrohrossetto/cpp-data-structures.git
 [submodule "computer-architecture/mips-assembly/mips-assembly-ac1"]
 	path = computer-architecture/mips-assembly/mips-assembly-ac1
 	url = https://github.com/pedrohrossetto/mips-assembly-ac1.git

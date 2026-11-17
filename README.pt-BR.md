@@ -25,7 +25,7 @@ Cada README de assunto lista o material **por conceito** e **por disciplina**.
 
 | Repositório | O quê |
 |---|---|
-| [cpp-data-structures](https://github.com/pedrohrossetto/cpp-data-structures) | BST, AVL e algoritmos em grafos em C++ |
+| [cpp-data-structures](data-structures/bst/cpp-data-structures/) | BST, AVL e algoritmos em grafos em C++ |
 | [mips-assembly-ac1](https://github.com/pedrohrossetto/mips-assembly-ac1) | Atividade em assembly MIPS |
 | [logistics-events-python](https://github.com/pedrohrossetto/logistics-events-python) | Modelo de cadeia logística do agronegócio com blockchain de eventos (POO em Python) |
 | [rpg-inventory-python](https://github.com/pedrohrossetto/rpg-inventory-python) | Missões e inventário de RPG com o padrão State |
