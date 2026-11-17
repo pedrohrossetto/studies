@@ -28,6 +28,6 @@ Data structures in C++ (and a BST in Rust), grouped by structure.
 
 ## Related repositories
 
-- [cpp-data-structures](https://github.com/pedrohrossetto/cpp-data-structures) (`bst/cpp-data-structures/`): BST, AVL and graph algorithms in C++ (Data Structures II)
+- [cpp-data-structures](bst/cpp-data-structures/): BST, AVL and graph algorithms in C++ (Data Structures II)
 - [competitive-programming](https://github.com/pedrohrossetto/competitive-programming): LeetCode 938, Range Sum of BST
 

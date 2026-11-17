@@ -25,7 +25,7 @@ Each subject README lists its material **by concept** and **by course**.
 
 | Repository | What |
 |---|---|
-| [cpp-data-structures](https://github.com/pedrohrossetto/cpp-data-structures) | BST, AVL and graph algorithms in C++ |
+| [cpp-data-structures](data-structures/bst/cpp-data-structures/) | BST, AVL and graph algorithms in C++ |
 | [mips-assembly-ac1](https://github.com/pedrohrossetto/mips-assembly-ac1) | MIPS assembly assignment |
 | [logistics-events-python](https://github.com/pedrohrossetto/logistics-events-python) | Agribusiness supply-chain model with an event blockchain (Python OOP) |
 | [rpg-inventory-python](https://github.com/pedrohrossetto/rpg-inventory-python) | RPG quests and inventory with the State pattern |
