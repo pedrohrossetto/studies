@@ -1,4 +1,4 @@
-#include "../../lib/pilhas-template.hpp"
+#include "../pilhas-template.hpp"
 #include "../../lib/utils.hpp"
 #include <cstring>
 #include <iostream>

@@ -10,7 +10,7 @@ Estruturas de dados em C++ (e uma BST em Rust), agrupadas por estrutura.
 |---|---|
 | [`bst/`](bst/) | Árvores binárias de busca e AVL |
 | [`doubly-linked-list/`](doubly-linked-list/) | Listas duplamente encadeadas |
-| [`lib/`](lib/) | Headers compartilhados pelos exercícios (pilha, fila, listas, utilitários) |
+| [`lib/`](lib/) | Utilitários compartilhados pelos exercícios (funções de console, arquivos de texto) |
 | [`linked-list/`](linked-list/) | Listas encadeadas, lista com descritor |
 | [`memory-allocation/`](memory-allocation/) | Alocação dinâmica de memória |
 | [`queue/`](queue/) | Filas circular e dinâmica |

@@ -1,4 +1,4 @@
-#include "../../lib/pilha-dinamica-template.hpp"
+#include "../pilha-dinamica-template.hpp"
 #include "../../lib/utils.hpp"
 #include <cstring>
 #include <iostream>

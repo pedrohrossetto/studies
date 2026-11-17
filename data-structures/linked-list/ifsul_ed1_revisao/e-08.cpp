@@ -3,7 +3,7 @@
 #include <cstring>
 #include <istream>
 #include <string> // Garantindo a inclusão para o std::string
-#include "../../lib/lista-descritor-template.hpp"
+#include "../lista-descritor-template.hpp"
 #include "../../lib/utils.hpp"
 
 using namespace std;

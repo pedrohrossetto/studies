@@ -2,7 +2,7 @@
 #include <fstream>
 #include <cstring>
 #include <istream>
-#include "../../lib/filas-template.hpp"
+#include "../filas-template.hpp"
 #include "../../lib/utils.hpp"
 #include "../../lib/text-files.hpp"
 

@@ -1,6 +1,6 @@
 #include <ctime>   
 #include <cstdlib> 
-#include "../../lib/vetor-dinamico.hpp"
+#include "../vetor-dinamico.hpp"
 using namespace std;
 
 int main(){

@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../../lib/pilhas.hpp"
+#include "../pilhas.hpp"
 #include "../../lib/utils.hpp"
 
 

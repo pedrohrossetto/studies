@@ -10,7 +10,7 @@ Data structures in C++ (and a BST in Rust), grouped by structure.
 |---|---|
 | [`bst/`](bst/) | Binary search trees and AVL |
 | [`doubly-linked-list/`](doubly-linked-list/) | Doubly linked lists |
-| [`lib/`](lib/) | Shared headers used by the exercises (stack, queue, lists, utils) |
+| [`lib/`](lib/) | Shared utilities used by the exercises (console helpers, text files) |
 | [`linked-list/`](linked-list/) | Singly linked lists, list with descriptor |
 | [`memory-allocation/`](memory-allocation/) | Dynamic memory allocation |
 | [`queue/`](queue/) | Circular and dynamic queues |
