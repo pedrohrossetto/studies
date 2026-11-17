@@ -8,7 +8,7 @@
 #include <sstream>
 #include <ctime>
 
-// #include "../modules/arvore-binaria-avl.hpp"
+// #include "../lib/arvore-binaria-avl.hpp"
 
 
 using namespace std;
@@ -63,7 +63,7 @@ int main(){
     AVLNode* root = nullptr;
     bool rodando = true;
     ofstream arquivo_saida;
-    if(!abrir_arquivo_escrita(arquivo_saida,"frota_atualizada.txt")){
+    if(!abrir_arquivo_escrita(arquivo_saida,"frota-atualizada.txt")){
         return 1;
     }
     ifstream arquivo_entrada;

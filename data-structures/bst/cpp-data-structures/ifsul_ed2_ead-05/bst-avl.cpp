@@ -1,8 +1,8 @@
-#include "../modules/arvore-binaria-avl.hpp"
-#include "../modules/graphviz_bintree.hpp"
-#include "../modules/menu_funcoes.hpp"
-#include "../modules/utils_plus.hpp"
-#include "../modules/text_files_plus.hpp"
+#include "../lib/arvore-binaria-avl.hpp"
+#include "../lib/graphviz-bintree.hpp"
+#include "../lib/menu-funcoes.hpp"
+#include "../lib/utils-plus.hpp"
+#include "../lib/text-files-plus.hpp"
 
 #include <iostream>
 
@@ -55,8 +55,8 @@ int main() {
         lista_adicionar(acoes_submenu, {"Ler Arquivo Texto", [&]() {
             std::ifstream arquivo;
             if (!abrir_arquivo_leitura_candidatos(arquivo, {
-                    "arquivo_ead5_q1.txt",
-                    "ead5/arquivo_ead5_q1.txt"})) {
+                    "q-01_arquivo.txt",
+                    "ifsul_ed2_ead-05/q-01_arquivo.txt"})) {
                 return;
             }
             tree_apply_ops_stream(root, arquivo);

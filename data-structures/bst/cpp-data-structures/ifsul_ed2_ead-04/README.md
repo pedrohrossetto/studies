@@ -1,8 +1,8 @@
-# ead4/ — exercícios AVL (inserção, remoção, rotações)
+# ifsul_ed2_ead-04/ — exercícios AVL (inserção, remoção, rotações)
 
-`bst-avl-ead4.cpp` — cada opção **zera** a árvore antes. Rotações são impressas. PNG em `arvore_qN.png` (cwd).
+`bst-avl.cpp` — cada opção **zera** a árvore antes. Rotações são impressas. PNG em `arvore_qN.png` (cwd).
 
-Rodar daqui ou da pasta pai. Q5 acha `arquivo_ead4_q5.txt` nos dois.
+Rodar daqui ou da pasta pai. Q5 acha `q-05_arquivo.txt` nos dois.
 
 Pré-ordem abaixo é o dump `tree_walk_preorder` (`<val <esq> <dir>>`).
 
@@ -111,7 +111,7 @@ Final, raiz **42**:
 
 ---
 
-## Q5 — arquivo `arquivo_ead4_q5.txt`
+## Q5 — arquivo `q-05_arquivo.txt`
 
 ```
 inserir 10, 2, 3, 18, 5

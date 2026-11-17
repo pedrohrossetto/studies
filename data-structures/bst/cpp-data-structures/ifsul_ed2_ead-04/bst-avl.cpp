@@ -1,8 +1,8 @@
-#include "../modules/arvore-binaria-avl.hpp"
-#include "../modules/graphviz_bintree.hpp"
-#include "../modules/menu_funcoes.hpp"
-#include "../modules/utils_plus.hpp"
-#include "../modules/text_files_plus.hpp"
+#include "../lib/arvore-binaria-avl.hpp"
+#include "../lib/graphviz-bintree.hpp"
+#include "../lib/menu-funcoes.hpp"
+#include "../lib/utils-plus.hpp"
+#include "../lib/text-files-plus.hpp"
 
 #include <iostream>
 
@@ -120,8 +120,8 @@ int main() {
         tree_clear(root);
         std::ifstream arquivo;
         if (!abrir_arquivo_leitura_candidatos(arquivo, {
-                "arquivo_ead4_q5.txt",
-                "ead4/arquivo_ead4_q5.txt"})) {
+                "q-05_arquivo.txt",
+                "ifsul_ed2_ead-04/q-05_arquivo.txt"})) {
             return;
         }
         avl_set_rotation_trace(true);

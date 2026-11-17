@@ -1,4 +1,4 @@
-# modules/
+# lib/
 
 Headers compartilhados. São a implementação que a prova usa. Tudo `inline` em `.hpp` — não existe `.cpp` correspondente.
 
@@ -61,12 +61,12 @@ na volta: update_height + rebalance
 
 Delete AVL: mesmos 3 casos, na volta `update_height` + `rebalance`. Remover pode desbalancear **vários** ancestrais — por isso o rebalance é em todo o caminho, não só no primeiro.
 
-## graphviz_bintree.hpp
+## graphviz-bintree.hpp
 
 `export_to_dot(root, "nome")` → `nome` (DOT) + `nome.png`. ID do nó = endereço, não a chave — duplicatas BST não fundem.
 
-## menu_funcoes.hpp / utils_plus.hpp / text_files_plus.hpp
+## menu-funcoes.hpp / utils-plus.hpp / text-files-plus.hpp
 
 Menu encadeado com `std::function`. `lerInteiroValido`, `gerarAleatorio` (troca min/max se invertidos).
 
-`abrir_arquivo_leitura_candidatos({ "a.txt", "ead4/a.txt" })` — tenta na ordem, só erra se todos falharem.
+`abrir_arquivo_leitura_candidatos({ "a.txt", "ifsul_ed2_ead-04/a.txt" })` — tenta na ordem, só erra se todos falharem.

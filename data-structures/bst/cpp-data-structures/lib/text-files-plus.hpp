@@ -141,7 +141,7 @@ inline bool ler_arquivo_completo(const std::string &caminho, std::string &conteu
 
 /**
  * Tenta abrir o primeiro caminho que existir. Só reporta erro se todos falharem.
- * Útil quando o binário pode ser executado da raiz ou da subpasta (ead4/ead5).
+ * Útil quando o binário pode ser executado da raiz ou da subpasta (ifsul_ed2_ead-04/ead5).
  */
 inline bool abrir_arquivo_leitura_candidatos(std::ifstream &arquivo,
                                              std::initializer_list<std::string> caminhos) {

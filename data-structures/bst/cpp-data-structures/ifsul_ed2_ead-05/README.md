@@ -1,8 +1,8 @@
-# ead5/ — laboratório AVL (consultas)
+# ifsul_ed2_ead-05/ — laboratório AVL (consultas)
 
-`bst-avl-ead5.cpp` — dois submenus. Árvore de cada questão é local e é `tree_clear` ao voltar.
+`bst-avl.cpp` — dois submenus. Árvore de cada questão é local e é `tree_clear` ao voltar.
 
-Q1 lê `arquivo_ead5_q1.txt` daqui ou da pasta pai.
+Q1 lê `q-01_arquivo.txt` daqui ou da pasta pai.
 
 ---
 

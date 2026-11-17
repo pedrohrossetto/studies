@@ -1,7 +1,7 @@
-#include "../modules/arvore-binaria.hpp"
-#include "../modules/graphviz_bintree.hpp"
-#include "../modules/menu_funcoes.hpp"
-#include "../modules/utils_plus.hpp"
+#include "../lib/arvore-binaria-avl.hpp"
+#include "../lib/graphviz-bintree.hpp"
+#include "../lib/menu-funcoes.hpp"
+#include "../lib/utils-plus.hpp"
 #include <iostream>
 #include <string>
 
@@ -9,7 +9,7 @@
 
 int main() {
     limpar_tela();
-    TreeNode* root = nullptr;
+    AVLNode* root = nullptr;
     bool rodando = true;
 
     ListaMenuAcao acoes = lista_criar();
@@ -39,20 +39,10 @@ int main() {
         std::cout << "Inserido.\n";
     }});
 
-    lista_adicionar(acoes, {"Buscar nó", [&]() {
+    lista_adicionar(acoes, {"Buscar", [&]() {
         int val = lerInteiroValido("Valor: ");
         if (node_search(root, val)) {
             std::cout << "Encontrado.\n";
-        } else {
-            std::cout << "Não encontrado.\n";
-        }
-    }});
-
-    lista_adicionar(acoes, {"Buscar nó e seu nível (raiz = 0)", [&]() {
-        int val = lerInteiroValido("Valor: ");
-        int nivel = node_level(root, val);
-        if (nivel != -1) {
-            std::cout << "Encontrado. Nível: " << nivel << "\n";
         } else {
             std::cout << "Não encontrado.\n";
         }
@@ -90,7 +80,7 @@ int main() {
             std::cout << "Não encontrado.\n";
             return;
         }
-        TreeNode* pred = tree_predecessor(root, val);
+        AVLNode* pred = tree_predecessor(root, val);
         std::cout << (pred ? std::to_string(pred->val) : "Nenhum") << "\n";
     }});
 
@@ -100,7 +90,7 @@ int main() {
             std::cout << "Não encontrado.\n";
             return;
         }
-        TreeNode* suc = tree_sucessor(root, val);
+        AVLNode* suc = tree_sucessor(root, val);
         std::cout << (suc ? std::to_string(suc->val) : "Nenhum") << "\n";
     }});
 
@@ -125,15 +115,21 @@ int main() {
     }});
 
     lista_adicionar(acoes, {"Altura da Árvore", [&]() {
-        std::cout << tree_height(root);
+        std::cout << avl_height(root) << "\n";
     }});
 
     lista_adicionar(acoes, {"Tamanho da Árvore", [&]() {
-        std::cout << tree_size(root);
+        std::cout << tree_size(root) << "\n";
+    }});
+
+    lista_adicionar(acoes, {"Fator de Balanceamento", [&]() {
+        if (is_empty(root)) { std::cout << "Árvore vazia.\n"; return; }
+        std::cout << avl_balance(root) << "\n";
     }});
 
     lista_adicionar(acoes, {"Estatísticas Compiladas", [&]() {
-        tree_stats(root);
+        if (is_empty(root)) { std::cout << "Árvore vazia.\n"; return; }
+        avl_stats(root);
     }});
 
     lista_adicionar(acoes, {"Exportar DOT/PNG", [&]() {

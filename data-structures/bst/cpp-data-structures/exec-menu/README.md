@@ -1,4 +1,4 @@
-# exec_menu/ — playground
+# exec-menu/ — playground
 
 Dois mains contra os mesmos headers. Servem pra montar um exemplo da prova na hora e conferir pré-ordem / PNG / números.
 
