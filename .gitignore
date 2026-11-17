@@ -1,0 +1,23 @@
+# build output
+*.o
+*.obj
+*.out
+*.exe
+*.d
+a.out
+build/
+target/
+Cargo.lock
+# python
+__pycache__/
+*.pyc
+.venv/
+# node / editors
+node_modules/
+.vscode/
+.zed/
+# professor material lives in ~/Documents/ifsul-cc, never here
+*.pdf
+*.pptx
+*.docx
+*.jar

@@ -1,0 +1,18 @@
+[submodule "data-structures/bst/cpp-data-structures"]
+	path = data-structures/bst/cpp-data-structures
+	url = https://github.com/pedrohrossetto/cpp-data-structures.git
+[submodule "computer-architecture/mips-assembly/mips-assembly-ac1"]
+	path = computer-architecture/mips-assembly/mips-assembly-ac1
+	url = https://github.com/pedrohrossetto/mips-assembly-ac1.git
+[submodule "object-oriented/python-oop/logistics-events-python"]
+	path = object-oriented/python-oop/logistics-events-python
+	url = https://github.com/pedrohrossetto/logistics-events-python.git
+[submodule "object-oriented/python-oop/rpg-inventory-python"]
+	path = object-oriented/python-oop/rpg-inventory-python
+	url = https://github.com/pedrohrossetto/rpg-inventory-python.git
+[submodule "web/cards-game-web"]
+	path = web/cards-game-web
+	url = https://github.com/pedrohrossetto/cards-game-web.git
+[submodule "web/attendance-control-web"]
+	path = web/attendance-control-web
+	url = https://github.com/pedrohrossetto/attendance-control-web.git
